@@ -7,14 +7,27 @@ const dotPositions = {
   6: ["top-left", "top-right", "middle-left", "middle-right", "bottom-left", "bottom-right"],
 };
 
-const cubeFaces = [
-  ["front", 1],
-  ["back", 6],
-  ["right", 3],
-  ["left", 4],
-  ["top", 5],
-  ["bottom", 2],
+const faceNames = [
+  "front",
+  "back",
+  "right",
+  "left",
+  "top",
+  "bottom",
 ];
+
+function getCubeFaceValues(value) {
+  const remainingValues = [1, 2, 3, 4, 5, 6].filter((faceValue) => faceValue !== value);
+
+  return {
+    front: value,
+    back: 7 - value,
+    right: remainingValues[0],
+    left: remainingValues[1],
+    top: remainingValues[2],
+    bottom: remainingValues[3],
+  };
+}
 
 function Dots({ value }) {
   return dotPositions[value].map((position) => (
@@ -22,19 +35,35 @@ function Dots({ value }) {
   ));
 }
 
-export function Die({ value, rolling, shakeRolling }) {
+const rollTimings = [
+  { delay: 0, duration: 760 },
+  { delay: 55, duration: 820 },
+  { delay: 95, duration: 780 },
+  { delay: 25, duration: 860 },
+  { delay: 120, duration: 800 },
+  { delay: 70, duration: 840 },
+];
+
+export function Die({ value, index = 0, rolling, shakeRolling }) {
   const rollClass = shakeRolling ? "shake-rolling" : rolling ? "rolling" : "";
+  const timing = rollTimings[index % rollTimings.length];
+  const cubeFaceValues = getCubeFaceValues(value);
 
   return (
     <div
       className={`die ${rollClass}`}
-      style={{ "--roll-offset": `${value * 2}deg` }}
+      style={{
+        "--roll-delay": `${timing.delay}ms`,
+        "--roll-duration": `${timing.duration}ms`,
+        "--roll-offset": `${value * 2 + index * 7}deg`,
+        "--roll-wobble": index % 2 === 0 ? "1" : "-1",
+      }}
       aria-label={`Die showing ${value}`}
     >
       <div className="die-cube" aria-hidden="true">
-        {cubeFaces.map(([face, faceValue]) => (
+        {faceNames.map((face) => (
           <div className={`die-face cube-face cube-face-${face}`} key={face}>
-            <Dots value={faceValue} />
+            <Dots value={cubeFaceValues[face]} />
           </div>
         ))}
       </div>

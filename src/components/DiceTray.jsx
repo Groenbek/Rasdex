@@ -6,6 +6,7 @@ export function DiceTray({ dice, label, rolling, shakeRolling }) {
       {dice.map((value, index) => (
         <Die
           value={value}
+          index={index}
           rolling={rolling}
           shakeRolling={shakeRolling}
           key={`${index}-${value}`}
