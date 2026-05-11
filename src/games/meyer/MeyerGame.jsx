@@ -26,7 +26,7 @@ export function MeyerGame({ controls, text }) {
         <h1>Meyer</h1>
       </header>
 
-      <DiceTray dice={dice} rolling={rolling} onRoll={handleRoll} label={text.meyer.rollLabel} />
+      <DiceTray dice={dice} rolling={rolling} label={text.meyer.rollLabel} />
 
       <button className="roll-button" type="button" onClick={handleRoll} disabled={rolling}>
         {rolling ? text.rolling : text.roll}

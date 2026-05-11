@@ -62,7 +62,6 @@ export function SnydGame({ controls, text }) {
       <DiceTray
         dice={dice}
         rolling={rolling}
-        onRoll={handleRoll}
         label={text.rollDiceLabel(diceCount)}
       />
 

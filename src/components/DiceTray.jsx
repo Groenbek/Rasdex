@@ -1,11 +1,11 @@
 import { Die } from "./Die";
 
-export function DiceTray({ dice, rolling, onRoll, label }) {
+export function DiceTray({ dice, rolling, label }) {
   return (
-    <button className="dice-tray" type="button" onClick={onRoll} aria-label={label}>
+    <div className="dice-tray" aria-label={label}>
       {dice.map((value, index) => (
         <Die value={value} rolling={rolling} key={`${index}-${value}`} />
       ))}
-    </button>
+    </div>
   );
 }

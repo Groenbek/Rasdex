@@ -343,7 +343,6 @@ button {
   border: 1px solid var(--panel-border);
   border-radius: 8px;
   background: var(--control-bg);
-  cursor: pointer;
 }
 
 .meyer-panel .dice-tray {
@@ -371,7 +370,6 @@ button {
     0 18px 34px rgba(28, 37, 31, 0.26);
 }
 
-.dice-tray:focus-visible,
 .game-nav button:focus-visible,
 .icon-toggle button:focus-visible,
 .globe-button:focus-visible,
