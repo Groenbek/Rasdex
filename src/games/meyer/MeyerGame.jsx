@@ -41,13 +41,15 @@ export function MeyerGame({ controls, shakeToRoll, text }) {
         <h1>Meyer</h1>
       </header>
 
-      <DiceTray dice={dice} rolling={rolling} shakeRolling={shaking} label={text.meyer.rollLabel} />
+      <div className="dice-tray-shell">
+        <DiceTray dice={dice} rolling={rolling} shakeRolling={shaking} label={text.meyer.rollLabel} />
 
-      {!started && !rolling && (
-        <div className="start-overlay" aria-live="polite">
-          <p>{text.startPrompt}</p>
-        </div>
-      )}
+        {!started && !rolling && (
+          <div className="start-overlay" aria-live="polite">
+            <p>{shakeToRoll ? text.startPrompt : text.startPromptEnableShake}</p>
+          </div>
+        )}
+      </div>
 
       <button className="roll-button" type="button" onClick={handleRoll} disabled={rolling}>
         {rolling ? text.rolling : text.roll}

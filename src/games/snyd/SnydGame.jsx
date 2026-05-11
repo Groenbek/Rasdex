@@ -78,18 +78,20 @@ export function SnydGame({ controls, shakeToRoll, text }) {
         <h1>{text.title}</h1>
       </header>
 
-      <DiceTray
-        dice={dice}
-        rolling={rolling}
-        shakeRolling={shaking}
-        label={text.rollDiceLabel(diceCount)}
-      />
+      <div className="dice-tray-shell">
+        <DiceTray
+          dice={dice}
+          rolling={rolling}
+          shakeRolling={shaking}
+          label={text.rollDiceLabel(diceCount)}
+        />
 
-      {!started && !rolling && (
-        <div className="start-overlay" aria-live="polite">
-          <p>{text.startPrompt}</p>
-        </div>
-      )}
+        {!started && !rolling && (
+          <div className="start-overlay" aria-live="polite">
+            <p>{shakeToRoll ? text.startPrompt : text.startPromptEnableShake}</p>
+          </div>
+        )}
+      </div>
 
       <div className="dice-count" aria-label="Number of dice">
         {diceOptions.map((count) => (

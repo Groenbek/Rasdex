@@ -641,21 +641,24 @@ button {
   background: var(--control-bg);
 }
 
+.dice-tray-shell {
+  position: relative;
+  width: 100%;
+}
+
 .start-overlay {
   position: absolute;
-  top: 116px;
-  left: 34px;
-  right: 34px;
+  inset: 0;
   z-index: 3;
   display: grid;
-  min-height: 198px;
   place-items: center;
   padding: 24px;
   border: 1px solid var(--panel-border);
   border-radius: 8px;
   color: var(--page-text);
-  background: color-mix(in srgb, var(--panel-bg) 92%, transparent);
-  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--panel-bg) 34%, transparent);
+  backdrop-filter: blur(3px);
+  pointer-events: none;
   text-align: center;
 }
 
@@ -1158,12 +1161,6 @@ button {
 
   .dice-panel {
     padding: 24px;
-  }
-
-  .start-overlay {
-    top: 106px;
-    left: 24px;
-    right: 24px;
   }
 
   .settings-panel {
