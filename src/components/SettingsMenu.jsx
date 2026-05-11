@@ -3,6 +3,14 @@ import { languageOptions, languages } from "../data/languages";
 import { Flag } from "./Flag";
 import { ThemeToggle } from "./ThemeToggle";
 
+function getMotionPermissionRequirement() {
+    return (
+        typeof window !== "undefined" &&
+        typeof window.DeviceMotionEvent !== "undefined" &&
+        typeof window.DeviceMotionEvent.requestPermission === "function"
+    );
+}
+
 export function SettingsMenu({
     keepScreenAwake,
     language,
@@ -16,7 +24,18 @@ export function SettingsMenu({
     theme,
 }) {
     const [open, setOpen] = useState(false);
+    const [motionPermissionState, setMotionPermissionState] = useState(() =>
+        getMotionPermissionRequirement() ? "prompt" : "granted"
+    );
     const menuRef = useRef(null);
+    const shakeHint =
+        motionPermissionState === "prompt" && !shakeToRoll
+            ? text.settings.shakePermissionHint ||
+              "Tap to allow motion access for shake-to-throw."
+            : motionPermissionState === "denied" && !shakeToRoll
+              ? text.settings.shakePermissionDenied ||
+                "Motion access was not granted. Enable it in your browser settings, then try again."
+              : text.settings.shakeHint;
 
     useEffect(() => {
         if (!open) {
@@ -45,17 +64,20 @@ export function SettingsMenu({
 
         if (
             nextValue &&
-            typeof DeviceMotionEvent !== "undefined" &&
-            typeof DeviceMotionEvent.requestPermission === "function"
+            getMotionPermissionRequirement()
         ) {
             try {
-                const permission = await DeviceMotionEvent.requestPermission();
+                const permission = await window.DeviceMotionEvent.requestPermission();
 
                 if (permission !== "granted") {
+                    setMotionPermissionState("denied");
                     onShakeToRollChange(false);
                     return;
                 }
+
+                setMotionPermissionState("granted");
             } catch {
+                setMotionPermissionState("denied");
                 onShakeToRollChange(false);
                 return;
             }
@@ -108,9 +130,7 @@ export function SettingsMenu({
                                     : text.settings.off}
                             </span>
                         </button>
-                        <span className="settings-hint">
-                            {text.settings.shakeHint}
-                        </span>
+                        <span className="settings-hint">{shakeHint}</span>
                     </div>
 
                     <div className="settings-section">
@@ -136,7 +156,7 @@ export function SettingsMenu({
                         </div>
                     </div>
 
-                    <div className="settings-section">
+                    <div className="settings-section settings-section-screen">
                         <span className="settings-label">
                             {text.settings.screen}
                         </span>

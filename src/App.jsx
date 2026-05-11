@@ -7,10 +7,18 @@ import { SnydGame } from "./games/snyd/SnydGame";
 import { useScreenWakeLock } from "./hooks/useScreenWakeLock";
 
 export function App() {
+    function needsMotionPermission() {
+        return (
+            typeof window !== "undefined" &&
+            typeof window.DeviceMotionEvent !== "undefined" &&
+            typeof window.DeviceMotionEvent.requestPermission === "function"
+        );
+    }
+
     const [theme, setTheme] = useState("dark");
     const [language, setLanguage] = useState("en");
     const [activeGame, setActiveGame] = useState("snyd");
-    const [shakeToRoll, setShakeToRoll] = useState(true);
+    const [shakeToRoll, setShakeToRoll] = useState(() => !needsMotionPermission());
     const [keepScreenAwake, setKeepScreenAwake] = useState(false);
     const screenWakeLock = useScreenWakeLock(keepScreenAwake);
     const text = languages[language];

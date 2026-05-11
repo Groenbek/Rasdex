@@ -7,6 +7,7 @@
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -22,6 +23,16 @@ body {
 
 button {
   font: inherit;
+}
+
+button,
+[role="button"],
+[role="switch"],
+input,
+select,
+textarea,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .page-shell {
@@ -663,7 +674,12 @@ button {
 
 .settings-section {
   display: grid;
+  align-content: center;
   gap: 8px;
+}
+
+.settings-section-screen {
+  min-height: 82px;
 }
 
 .settings-label {
@@ -764,6 +780,8 @@ button {
   border: 1px solid var(--panel-border);
   border-radius: 8px;
   background: var(--control-bg);
+  perspective: 820px;
+  perspective-origin: 50% 38%;
 }
 
 .dice-tray-shell {
@@ -806,12 +824,28 @@ button {
   aspect-ratio: 1;
   border-radius: 8px;
   background: var(--die-bg);
+  transform-style: preserve-3d;
   box-shadow:
     inset 0 -8px 0 rgba(0, 0, 0, 0.08),
     0 14px 28px rgba(28, 37, 31, 0.24);
   transition:
     transform 160ms ease,
     box-shadow 160ms ease;
+}
+
+.die::before {
+  content: "";
+  position: absolute;
+  inset: 6%;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 42%),
+    color-mix(in srgb, var(--die-bg) 72%, #000000);
+  box-shadow: 12px 14px 22px rgba(28, 37, 31, 0.26);
+  transform: translate3d(13px, 13px, -28px);
+  transition: opacity 160ms ease;
 }
 
 .die::after {
@@ -848,15 +882,23 @@ button {
 }
 
 .die.rolling {
+  z-index: 1;
+  overflow: visible;
   animation: tumble 700ms cubic-bezier(0.2, 0.86, 0.28, 1.08);
 }
 
 .die.shake-rolling {
   z-index: 1;
+  overflow: visible;
   animation: shake-tumble 320ms cubic-bezier(0.16, 0.84, 0.26, 1.16) infinite;
   box-shadow:
     inset 0 -10px 0 rgba(0, 0, 0, 0.1),
     0 22px 42px rgba(28, 37, 31, 0.34);
+}
+
+.die.rolling::before,
+.die.shake-rolling::before {
+  opacity: 1;
 }
 
 .die.rolling::after,
@@ -1001,6 +1043,10 @@ button {
     0 8px 16px rgba(28, 37, 31, 0.2);
 }
 
+.life-die .die::before {
+  display: none;
+}
+
 .life-die .dot {
   width: 17%;
 }
@@ -1056,6 +1102,14 @@ button {
 .contrast .rules-overlay,
 .terminal .rules-overlay {
   background: rgba(17, 23, 29, 0.86);
+}
+
+.wood .rules-overlay {
+  background:
+    linear-gradient(rgba(50, 28, 12, 0.5), rgba(50, 28, 12, 0.5)),
+    linear-gradient(90deg, rgba(255, 232, 184, 0.12), transparent 14%, rgba(69, 36, 16, 0.18) 28%, transparent 44%),
+    repeating-linear-gradient(8deg, rgba(52, 29, 14, 0.2) 0 2px, transparent 2px 18px),
+    linear-gradient(135deg, #9a6333 0%, #6f3f22 42%, #b1773d 70%, #563018 100%);
 }
 
 .rules-card {
@@ -1159,6 +1213,13 @@ button {
   background: rgba(17, 23, 29, 0.9);
 }
 
+.wood .lost-overlay {
+  background:
+    linear-gradient(rgba(226, 193, 143, 0.88), rgba(226, 193, 143, 0.88)),
+    repeating-linear-gradient(8deg, rgba(52, 29, 14, 0.18) 0 2px, transparent 2px 16px),
+    linear-gradient(135deg, #9a6333 0%, #6f3f22 42%, #b1773d 70%, #563018 100%);
+}
+
 .lost-overlay h2 {
   margin: 0;
   color: var(--page-text);
@@ -1195,59 +1256,59 @@ button {
 @keyframes tumble {
   0% {
     filter: blur(0);
-    transform: translateY(0) rotate(0deg) scale(1);
+    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
   }
 
   18% {
     filter: blur(0.5px);
-    transform: translateY(-2px) rotate(calc(-8deg + var(--roll-offset))) scale(1);
+    transform: translate3d(-8px, -14px, 42px) rotateX(66deg) rotateY(-48deg) rotateZ(calc(-14deg + var(--roll-offset))) scale(1.05);
   }
 
   42% {
     filter: blur(0.9px);
-    transform: translateY(2px) rotate(calc(10deg + var(--roll-offset))) scale(1);
+    transform: translate3d(12px, 6px, 70px) rotateX(154deg) rotateY(108deg) rotateZ(calc(24deg + var(--roll-offset))) scale(1.12);
   }
 
   66% {
     filter: blur(0.6px);
-    transform: translateY(-1px) rotate(calc(-6deg + var(--roll-offset))) scale(1);
+    transform: translate3d(-5px, -7px, 34px) rotateX(238deg) rotateY(188deg) rotateZ(calc(-18deg + var(--roll-offset))) scale(1.06);
   }
 
   84% {
     filter: blur(0);
-    transform: translateY(1px) rotate(4deg) scale(1);
+    transform: translate3d(3px, 3px, 14px) rotateX(326deg) rotateY(282deg) rotateZ(6deg) scale(1.02);
   }
 
   100% {
     filter: blur(0);
-    transform: translateY(0) rotate(0deg) scale(1);
+    transform: translate3d(0, 0, 0) rotateX(360deg) rotateY(360deg) rotateZ(0deg) scale(1);
   }
 }
 
 @keyframes shake-tumble {
   0% {
     filter: blur(0);
-    transform: translate(-8px, 3px) rotate(calc(-22deg + var(--roll-offset))) scale(1.12);
+    transform: translate3d(-8px, 3px, 30px) rotateX(42deg) rotateY(-36deg) rotateZ(calc(-22deg + var(--roll-offset))) scale(1.12);
   }
 
   22% {
     filter: blur(0.7px);
-    transform: translate(10px, -8px) rotate(calc(28deg + var(--roll-offset))) scale(1.2);
+    transform: translate3d(10px, -8px, 78px) rotateX(122deg) rotateY(82deg) rotateZ(calc(28deg + var(--roll-offset))) scale(1.2);
   }
 
   46% {
     filter: blur(1px);
-    transform: translate(-12px, -3px) rotate(calc(-34deg + var(--roll-offset))) scale(1.16);
+    transform: translate3d(-12px, -3px, 64px) rotateX(212deg) rotateY(166deg) rotateZ(calc(-34deg + var(--roll-offset))) scale(1.16);
   }
 
   70% {
     filter: blur(0.7px);
-    transform: translate(8px, 8px) rotate(calc(24deg + var(--roll-offset))) scale(1.22);
+    transform: translate3d(8px, 8px, 52px) rotateX(296deg) rotateY(246deg) rotateZ(calc(24deg + var(--roll-offset))) scale(1.22);
   }
 
   100% {
     filter: blur(0);
-    transform: translate(-8px, 3px) rotate(calc(-22deg + var(--roll-offset))) scale(1.12);
+    transform: translate3d(-8px, 3px, 30px) rotateX(402deg) rotateY(324deg) rotateZ(calc(-22deg + var(--roll-offset))) scale(1.12);
   }
 }
 
