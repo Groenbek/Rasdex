@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DiceTray } from "../../components/DiceTray";
 import { Die } from "../../components/Die";
+import { playLifeLostSound, playYouLostSound } from "../../utils/playLifeSounds";
 import { playDiceRollSound } from "../../utils/playDiceRollSound";
 import { SnydRules } from "./SnydRules";
 
@@ -43,10 +44,12 @@ export function SnydGame({ controls, text }) {
     }
 
     if (lives === 1) {
+      playYouLostSound();
       setLost(true);
       return;
     }
 
+    playLifeLostSound();
     setLives((current) => current - 1);
   }
 

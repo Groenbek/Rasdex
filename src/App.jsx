@@ -1,25 +1,26 @@
 import { useState } from "react";
 import { Footer } from "./components/Footer";
-import { LanguageMenu } from "./components/LanguageMenu";
-import { ThemeToggle } from "./components/ThemeToggle";
+import { SettingsMenu } from "./components/SettingsMenu";
 import { languages } from "./data/languages";
 import { MeyerGame } from "./games/meyer/MeyerGame";
 import { SnydGame } from "./games/snyd/SnydGame";
 
 export function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [theme, setTheme] = useState("dark");
   const [language, setLanguage] = useState("en");
   const [activeGame, setActiveGame] = useState("snyd");
   const text = languages[language];
   const controls = (
-    <div className="switch-row" aria-label="Display settings">
-      <ThemeToggle darkMode={darkMode} onChange={setDarkMode} />
-      <LanguageMenu language={language} onChange={setLanguage} />
-    </div>
+    <SettingsMenu
+      language={language}
+      onLanguageChange={setLanguage}
+      onThemeChange={setTheme}
+      theme={theme}
+    />
   );
 
   return (
-    <main className={`page-shell ${darkMode ? "dark" : "light"}`}>
+    <main className={`page-shell ${theme}`}>
       <div className="app-layout">
         <header className="game-header">
           <nav className="game-nav" aria-label="Game selection">

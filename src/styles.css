@@ -105,6 +105,114 @@ button {
     linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
 }
 
+.page-shell.contrast {
+  --page-text: #ffffff;
+  --panel-bg: #000000;
+  --panel-border: #ffffff;
+  --muted-text: #fff36d;
+  --die-bg: #ffffff;
+  --dot-bg: #000000;
+  --button-bg: #fff36d;
+  --button-bg-hover: #00e5ff;
+  --button-text: #000000;
+  --control-bg: #000000;
+  --control-selected: #fff36d;
+  --control-selected-text: #000000;
+  --menu-active-bg: #fff36d;
+  --menu-active-text: #000000;
+  --shadow: rgba(0, 0, 0, 0.72);
+  background: #000000;
+}
+
+.page-shell.contrast::before {
+  background:
+    linear-gradient(135deg, #000000 0 40%, #111111 40% 60%, #000000 60% 100%),
+    linear-gradient(90deg, #00e5ff 0 3px, transparent 3px 100%),
+    linear-gradient(#fff36d 0 3px, transparent 3px 100%);
+  background-size: auto, 72px 72px, 72px 72px;
+}
+
+.page-shell.contrast::after {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+}
+
+.page-shell.terminal {
+  --page-text: #7cff8a;
+  --panel-bg: rgba(0, 14, 5, 0.9);
+  --panel-border: rgba(124, 255, 138, 0.62);
+  --muted-text: #46c95b;
+  --die-bg: #031707;
+  --dot-bg: #7cff8a;
+  --button-bg: #7cff8a;
+  --button-bg-hover: #b4ffbd;
+  --button-text: #001904;
+  --control-bg: rgba(0, 28, 8, 0.88);
+  --control-selected: #7cff8a;
+  --control-selected-text: #001904;
+  --menu-active-bg: rgba(124, 255, 138, 0.22);
+  --menu-active-text: #b4ffbd;
+  --shadow: rgba(0, 0, 0, 0.72);
+  background: #000000;
+  text-shadow: 0 0 8px rgba(124, 255, 138, 0.42);
+}
+
+.page-shell.terminal::before {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(42, 255, 86, 0.16), transparent 42%),
+    linear-gradient(135deg, #020703 0%, #001b07 50%, #000000 100%);
+}
+
+.page-shell.terminal::after {
+  background-image:
+    linear-gradient(rgba(124, 255, 138, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 255, 138, 0.08) 1px, transparent 1px),
+    repeating-linear-gradient(to bottom, rgba(124, 255, 138, 0.08) 0 1px, transparent 1px 4px);
+  background-size: 46px 46px, 46px 46px, 100% 4px;
+  mask-image: none;
+}
+
+.terminal .dice-panel,
+.terminal .game-nav,
+.terminal .settings-panel,
+.terminal .rules-card {
+  box-shadow:
+    0 0 0 1px rgba(124, 255, 138, 0.2),
+    0 0 36px rgba(124, 255, 138, 0.18),
+    0 24px 80px var(--shadow);
+}
+
+.terminal .die {
+  border: 2px solid rgba(124, 255, 138, 0.82);
+  box-shadow:
+    inset 0 0 0 1px rgba(124, 255, 138, 0.18),
+    0 0 18px rgba(124, 255, 138, 0.24),
+    0 14px 28px rgba(0, 0, 0, 0.42);
+}
+
+.terminal .dice-tray:hover .die {
+  box-shadow:
+    inset 0 0 0 1px rgba(124, 255, 138, 0.22),
+    0 0 22px rgba(124, 255, 138, 0.3),
+    0 18px 34px rgba(0, 0, 0, 0.46);
+}
+
+.terminal .life-die .die {
+  border-width: 1px;
+  box-shadow:
+    inset 0 0 0 1px rgba(124, 255, 138, 0.18),
+    0 0 12px rgba(124, 255, 138, 0.22),
+    0 8px 16px rgba(0, 0, 0, 0.34);
+}
+
+.terminal .life-die:hover .die {
+  box-shadow:
+    inset 0 0 0 1px rgba(124, 255, 138, 0.22),
+    0 0 14px rgba(124, 255, 138, 0.28),
+    0 8px 16px rgba(0, 0, 0, 0.36);
+}
+
 .app-layout {
   position: relative;
   z-index: 1;
@@ -209,7 +317,9 @@ button {
 
 .icon-toggle {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   padding: 6px;
   border: 1px solid var(--panel-border);
@@ -220,9 +330,10 @@ button {
 
 .icon-toggle button {
   display: grid;
-  width: 38px;
+  min-width: 38px;
   height: 34px;
   place-items: center;
+  padding: 0 9px;
   border: 0;
   border-radius: 999px;
   color: var(--page-text);
@@ -235,26 +346,30 @@ button {
 
 .icon-toggle button:hover,
 .globe-button:hover,
+.settings-button:hover,
+.settings-language-list button:hover,
 .language-list button:hover {
   transform: translateY(-1px);
 }
 
 .icon-toggle .active,
-.globe-button.active {
+.globe-button.active,
+.settings-button.active {
   background: var(--control-selected);
   box-shadow: 0 8px 18px rgba(28, 37, 31, 0.16);
 }
 
 .switch-icon {
   text-align: center;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
+  font-weight: 900;
   line-height: 1;
 }
 
 .flag {
   display: block;
-  width: 22px;
-  height: 15px;
+  width: 30px;
+  height: 21px;
   overflow: hidden;
   border-radius: 2px;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.16);
@@ -280,6 +395,29 @@ button {
     linear-gradient(to right, transparent 0 30%, #fecc00 30% 43%, transparent 43%),
     linear-gradient(to bottom, transparent 0 42%, #fecc00 42% 58%, transparent 58%),
     #006aa7;
+}
+
+.flag-no {
+  background:
+    linear-gradient(to right, transparent 0 33%, #00205b 33% 41%, transparent 41%),
+    linear-gradient(to bottom, transparent 0 43%, #00205b 43% 57%, transparent 57%),
+    linear-gradient(to right, transparent 0 28%, #ffffff 28% 46%, transparent 46%),
+    linear-gradient(to bottom, transparent 0 36%, #ffffff 36% 64%, transparent 64%),
+    #ba0c2f;
+}
+
+.flag-jp {
+  background: radial-gradient(circle at 50% 50%, #bc002d 0 28%, transparent 29%), #ffffff;
+}
+
+.flag-cn {
+  background:
+    radial-gradient(circle at 25% 28%, #ffde00 0 12%, transparent 13%),
+    radial-gradient(circle at 44% 16%, #ffde00 0 4%, transparent 5%),
+    radial-gradient(circle at 51% 28%, #ffde00 0 4%, transparent 5%),
+    radial-gradient(circle at 50% 42%, #ffde00 0 4%, transparent 5%),
+    radial-gradient(circle at 41% 52%, #ffde00 0 4%, transparent 5%),
+    #de2910;
 }
 
 .flag-gb {
@@ -347,6 +485,83 @@ button {
   background: var(--menu-active-bg);
 }
 
+.settings-menu {
+  position: relative;
+  flex: 0 0 46px;
+}
+
+.settings-button {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  color: var(--page-text);
+  background: var(--control-bg);
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.settings-panel {
+  position: absolute;
+  right: 50%;
+  bottom: calc(100% + 12px);
+  z-index: 8;
+  display: grid;
+  width: min(84vw, 260px);
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  color: var(--page-text);
+  background: var(--panel-bg);
+  box-shadow: 0 16px 40px var(--shadow);
+  transform: translateX(50%);
+  backdrop-filter: blur(14px);
+}
+
+.settings-section {
+  display: grid;
+  gap: 8px;
+}
+
+.settings-label {
+  color: var(--muted-text);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.settings-language-list {
+  display: grid;
+  gap: 4px;
+}
+
+.settings-language-list button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--page-text);
+  background: transparent;
+  cursor: pointer;
+  font-weight: 800;
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.settings-language-list .active {
+  color: var(--menu-active-text);
+  background: var(--menu-active-bg);
+}
+
 .dice-tray {
   display: grid;
   width: 100%;
@@ -398,6 +613,8 @@ button {
 .game-nav button:focus-visible,
 .icon-toggle button:focus-visible,
 .globe-button:focus-visible,
+.settings-button:focus-visible,
+.settings-language-list button:focus-visible,
 .language-list button:focus-visible,
 .dice-count button:focus-visible,
 .roll-button:focus-visible,
@@ -606,7 +823,9 @@ button {
   backdrop-filter: blur(10px);
 }
 
-.dark .rules-overlay {
+.dark .rules-overlay,
+.contrast .rules-overlay,
+.terminal .rules-overlay {
   background: rgba(17, 23, 29, 0.86);
 }
 
@@ -705,7 +924,9 @@ button {
   backdrop-filter: blur(10px);
 }
 
-.dark .lost-overlay {
+.dark .lost-overlay,
+.contrast .lost-overlay,
+.terminal .lost-overlay {
   background: rgba(17, 23, 29, 0.9);
 }
 
