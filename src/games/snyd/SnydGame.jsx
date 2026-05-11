@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DiceTray } from "../../components/DiceTray";
 import { Die } from "../../components/Die";
+import { useShakeToRoll } from "../../hooks/useShakeToRoll";
 import { playLifeLostSound, playYouLostSound } from "../../utils/playLifeSounds";
 import { playDiceRollSound } from "../../utils/playDiceRollSound";
 import { SnydRules } from "./SnydRules";
@@ -11,7 +12,7 @@ function rollDice(count) {
   return Array.from({ length: count }, () => Math.floor(Math.random() * 6) + 1);
 }
 
-export function SnydGame({ controls, text }) {
+export function SnydGame({ controls, shakeToRoll, text }) {
   const [diceCount, setDiceCount] = useState(1);
   const [dice, setDice] = useState([1]);
   const [lives, setLives] = useState(6);
@@ -25,7 +26,7 @@ export function SnydGame({ controls, text }) {
   }
 
   function handleRoll() {
-    if (lost) {
+    if (lost || rolling) {
       return;
     }
 
@@ -37,6 +38,12 @@ export function SnydGame({ controls, text }) {
       setRolling(false);
     }, 350);
   }
+
+  useShakeToRoll({
+    canRoll: !rolling && !lost,
+    enabled: shakeToRoll,
+    onRoll: handleRoll,
+  });
 
   function loseLife() {
     if (lost) {

@@ -9,12 +9,15 @@ export function App() {
   const [theme, setTheme] = useState("dark");
   const [language, setLanguage] = useState("en");
   const [activeGame, setActiveGame] = useState("snyd");
+  const [shakeToRoll, setShakeToRoll] = useState(false);
   const text = languages[language];
   const controls = (
     <SettingsMenu
       language={language}
       onLanguageChange={setLanguage}
+      onShakeToRollChange={setShakeToRoll}
       onThemeChange={setTheme}
+      shakeToRoll={shakeToRoll}
       theme={theme}
     />
   );
@@ -45,9 +48,9 @@ export function App() {
 
         <div className="game-stage">
           {activeGame === "snyd" ? (
-            <SnydGame text={text} controls={controls} />
+            <SnydGame text={text} controls={controls} shakeToRoll={shakeToRoll} />
           ) : (
-            <MeyerGame text={text} controls={controls} />
+            <MeyerGame text={text} controls={controls} shakeToRoll={shakeToRoll} />
           )}
         </div>
       </div>

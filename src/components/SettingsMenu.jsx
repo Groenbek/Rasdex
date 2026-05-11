@@ -3,7 +3,14 @@ import { languageOptions, languages } from "../data/languages";
 import { Flag } from "./Flag";
 import { ThemeToggle } from "./ThemeToggle";
 
-export function SettingsMenu({ language, onLanguageChange, onThemeChange, theme }) {
+export function SettingsMenu({
+  language,
+  onLanguageChange,
+  onShakeToRollChange,
+  onThemeChange,
+  shakeToRoll,
+  theme,
+}) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -38,6 +45,30 @@ export function SettingsMenu({ language, onLanguageChange, onThemeChange, theme 
     setOpen(false);
   }
 
+  async function toggleShakeToRoll() {
+    const nextValue = !shakeToRoll;
+
+    if (
+      nextValue &&
+      typeof DeviceMotionEvent !== "undefined" &&
+      typeof DeviceMotionEvent.requestPermission === "function"
+    ) {
+      try {
+        const permission = await DeviceMotionEvent.requestPermission();
+
+        if (permission !== "granted") {
+          onShakeToRollChange(false);
+          return;
+        }
+      } catch {
+        onShakeToRollChange(false);
+        return;
+      }
+    }
+
+    onShakeToRollChange(nextValue);
+  }
+
   return (
     <div className="settings-menu" ref={menuRef}>
       <button
@@ -56,6 +87,21 @@ export function SettingsMenu({ language, onLanguageChange, onThemeChange, theme 
           <div className="settings-section">
             <span className="settings-label">Color</span>
             <ThemeToggle theme={theme} onChange={onThemeChange} />
+          </div>
+
+          <div className="settings-section">
+            <span className="settings-label">Motion</span>
+            <button
+              className={`settings-switch ${shakeToRoll ? "active" : ""}`}
+              type="button"
+              onClick={toggleShakeToRoll}
+              role="switch"
+              aria-checked={shakeToRoll}
+            >
+              <span>Shake to throw</span>
+              <span className="settings-switch-state">{shakeToRoll ? "On" : "Off"}</span>
+            </button>
+            <span className="settings-hint">Shake for 2 seconds to roll.</span>
           </div>
 
           <div className="settings-section">

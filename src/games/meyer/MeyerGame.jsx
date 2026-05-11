@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DiceTray } from "../../components/DiceTray";
+import { useShakeToRoll } from "../../hooks/useShakeToRoll";
 import { playDiceRollSound } from "../../utils/playDiceRollSound";
 import { MeyerInfo } from "./MeyerInfo";
 
@@ -7,12 +8,16 @@ function rollMeyerDice() {
   return Array.from({ length: 2 }, () => Math.floor(Math.random() * 6) + 1);
 }
 
-export function MeyerGame({ controls, text }) {
+export function MeyerGame({ controls, shakeToRoll, text }) {
   const [dice, setDice] = useState([1, 2]);
   const [rolling, setRolling] = useState(false);
   const [infoOpen, setInfoOpen] = useState(null);
 
   function handleRoll() {
+    if (rolling) {
+      return;
+    }
+
     setRolling(true);
     playDiceRollSound();
 
@@ -21,6 +26,12 @@ export function MeyerGame({ controls, text }) {
       setRolling(false);
     }, 350);
   }
+
+  useShakeToRoll({
+    canRoll: !rolling,
+    enabled: shakeToRoll,
+    onRoll: handleRoll,
+  });
 
   return (
     <section className="dice-panel meyer-panel" aria-label="Meyer dice roller">

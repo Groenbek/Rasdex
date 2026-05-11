@@ -553,6 +553,53 @@ button {
   gap: 4px;
 }
 
+.settings-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  color: var(--page-text);
+  background: var(--control-bg);
+  cursor: pointer;
+  font-weight: 800;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.settings-switch:hover {
+  transform: translateY(-1px);
+}
+
+.settings-switch.active {
+  color: var(--menu-active-text);
+  background: var(--menu-active-bg);
+}
+
+.settings-switch-state {
+  flex: 0 0 auto;
+  color: var(--muted-text);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.settings-switch.active .settings-switch-state {
+  color: var(--menu-active-text);
+}
+
+.settings-hint {
+  color: var(--muted-text);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
 .settings-language-list button {
   display: flex;
   align-items: center;
