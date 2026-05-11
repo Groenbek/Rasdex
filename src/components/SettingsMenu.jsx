@@ -9,6 +9,7 @@ export function SettingsMenu({
   onShakeToRollChange,
   onThemeChange,
   shakeToRoll,
+  text,
   theme,
 }) {
   const [open, setOpen] = useState(false);
@@ -77,7 +78,7 @@ export function SettingsMenu({
         onClick={() => setOpen((current) => !current)}
         aria-expanded={open}
         aria-haspopup="menu"
-        aria-label="Open settings"
+        aria-label={text.settings.open}
       >
         <span className="switch-icon">{"\u2699\uFE0F"}</span>
       </button>
@@ -85,12 +86,12 @@ export function SettingsMenu({
       {open && (
         <div className="settings-panel" role="menu">
           <div className="settings-section">
-            <span className="settings-label">Color</span>
-            <ThemeToggle theme={theme} onChange={onThemeChange} />
+            <span className="settings-label">{text.settings.color}</span>
+            <ThemeToggle labels={text.settings} theme={theme} onChange={onThemeChange} />
           </div>
 
           <div className="settings-section">
-            <span className="settings-label">Motion</span>
+            <span className="settings-label">{text.settings.motion}</span>
             <button
               className={`settings-switch ${shakeToRoll ? "active" : ""}`}
               type="button"
@@ -98,14 +99,16 @@ export function SettingsMenu({
               role="switch"
               aria-checked={shakeToRoll}
             >
-              <span>Shake to throw</span>
-              <span className="settings-switch-state">{shakeToRoll ? "On" : "Off"}</span>
+              <span>{text.settings.shakeToThrow}</span>
+              <span className="settings-switch-state">
+                {shakeToRoll ? text.settings.on : text.settings.off}
+              </span>
             </button>
-            <span className="settings-hint">Shake for 1 second to roll.</span>
+            <span className="settings-hint">{text.settings.shakeHint}</span>
           </div>
 
           <div className="settings-section">
-            <span className="settings-label">Language</span>
+            <span className="settings-label">{text.settings.language}</span>
             <div className="settings-language-list">
               {languageOptions.map((languageKey) => (
                 <button

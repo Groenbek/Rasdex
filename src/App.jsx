@@ -18,6 +18,7 @@ export function App() {
       onShakeToRollChange={setShakeToRoll}
       onThemeChange={setTheme}
       shakeToRoll={shakeToRoll}
+      text={text}
       theme={theme}
     />
   );
