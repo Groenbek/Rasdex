@@ -2,12 +2,13 @@ import { useState } from "react";
 import { DiceTray } from "../../components/DiceTray";
 import { useShakeToRoll } from "../../hooks/useShakeToRoll";
 import { playDiceRollSound } from "../../utils/playDiceRollSound";
+import { rollDice } from "../../utils/rollDice";
 import { MeyerInfo } from "./MeyerInfo";
 
 const rollSettleMs = 1120;
 
 function rollMeyerDice() {
-  return Array.from({ length: 2 }, () => Math.floor(Math.random() * 6) + 1);
+  return rollDice(2);
 }
 
 export function MeyerGame({ controls, shakeToRoll, text }) {

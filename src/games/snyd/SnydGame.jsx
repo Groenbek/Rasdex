@@ -4,14 +4,11 @@ import { Die } from "../../components/Die";
 import { useShakeToRoll } from "../../hooks/useShakeToRoll";
 import { playLifeLostSound, playYouLostSound } from "../../utils/playLifeSounds";
 import { playDiceRollSound } from "../../utils/playDiceRollSound";
+import { rollDice } from "../../utils/rollDice";
 import { SnydRules } from "./SnydRules";
 
 const diceOptions = [1, 2, 3, 4, 5, 6];
 const rollSettleMs = 1120;
-
-function rollDice(count) {
-  return Array.from({ length: count }, () => Math.floor(Math.random() * 6) + 1);
-}
 
 export function SnydGame({ controls, shakeToRoll, text }) {
   const [diceCount, setDiceCount] = useState(1);
