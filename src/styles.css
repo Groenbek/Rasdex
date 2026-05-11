@@ -282,7 +282,7 @@ a {
 }
 
 .wood .dice-tray {
-  perspective: 760px;
+  perspective: 1000px;
   perspective-origin: 50% 38%;
   background:
     linear-gradient(90deg, rgba(255, 235, 190, 0.1), transparent 26%, rgba(64, 34, 16, 0.12) 52%, transparent 78%),
@@ -305,6 +305,12 @@ a {
     inset 0 0 0 2px rgba(255, 232, 176, 0.16),
     inset 0 -12px 0 rgba(74, 38, 17, 0.2),
     0 16px 28px rgba(55, 31, 14, 0.34);
+}
+
+.wood .die.rolling,
+.wood .die.shake-rolling {
+  border-color: transparent;
+  background: transparent;
 }
 
 .wood .die::before {
@@ -820,11 +826,13 @@ a {
 }
 
 .die {
-  --cube-depth: clamp(48px, 9vw, 62px);
+  --die-size: clamp(96px, 18vw, 124px);
+  --cube-depth: 62px;
   --die-face-bg: var(--die-bg);
   position: relative;
   overflow: hidden;
-  width: min(88%, 124px);
+  width: var(--die-size);
+  max-width: 88%;
   aspect-ratio: 1;
   border-radius: 8px;
   background: var(--die-face-bg);
@@ -874,6 +882,7 @@ a {
   opacity: 0;
   pointer-events: none;
   transform-style: preserve-3d;
+  transform-origin: center;
 }
 
 .cube-face {
@@ -943,12 +952,14 @@ a {
 .die.rolling {
   z-index: 1;
   overflow: visible;
+  background: transparent;
   animation: tumble 700ms cubic-bezier(0.2, 0.86, 0.28, 1.08);
 }
 
 .die.shake-rolling {
   z-index: 1;
   overflow: visible;
+  background: transparent;
   animation: shake-tumble 320ms cubic-bezier(0.16, 0.84, 0.26, 1.16) infinite;
   box-shadow:
     inset 0 -10px 0 rgba(0, 0, 0, 0.1),
@@ -1109,6 +1120,8 @@ a {
 }
 
 .life-die .die {
+  --die-size: 34px;
+  --cube-depth: 17px;
   width: 34px;
   box-shadow:
     inset 0 -3px 0 rgba(0, 0, 0, 0.08),
@@ -1583,6 +1596,8 @@ a {
   }
 
   .die {
-    width: min(84%, 112px);
+    --die-size: clamp(94px, 28vw, 112px);
+    --cube-depth: 56px;
+    max-width: 84%;
   }
 }
