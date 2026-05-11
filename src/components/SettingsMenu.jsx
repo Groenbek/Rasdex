@@ -26,24 +26,15 @@ export function SettingsMenu({
       }
     }
 
-    function closeMenuWithKeyboard(event) {
-      if (event.key === "Escape") {
-        setOpen(false);
-      }
-    }
-
     document.addEventListener("pointerdown", closeMenu);
-    document.addEventListener("keydown", closeMenuWithKeyboard);
 
     return () => {
       document.removeEventListener("pointerdown", closeMenu);
-      document.removeEventListener("keydown", closeMenuWithKeyboard);
     };
   }, [open]);
 
   function selectLanguage(nextLanguage) {
     onLanguageChange(nextLanguage);
-    setOpen(false);
   }
 
   async function toggleShakeToRoll() {
