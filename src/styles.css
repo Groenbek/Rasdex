@@ -42,10 +42,7 @@ button {
   align-items: start;
   padding: 24px;
   color: var(--page-text);
-  background:
-    linear-gradient(115deg, rgba(255, 118, 91, 0.82) 0 18%, transparent 18% 100%),
-    linear-gradient(245deg, rgba(35, 167, 126, 0.62) 0 24%, transparent 24% 100%),
-    conic-gradient(from 210deg at 52% 42%, #ffe66d, #ff7a59, #36c3ff, #51d88a, #ffe66d);
+  background: #ffe66d;
   transition:
     background 220ms ease,
     color 220ms ease;
@@ -55,6 +52,19 @@ button {
   content: "";
   position: fixed;
   inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(255, 118, 91, 0.82) 0 18%, transparent 18% 100%),
+    linear-gradient(245deg, rgba(35, 167, 126, 0.62) 0 24%, transparent 24% 100%),
+    conic-gradient(from 210deg at 52% 42%, #ffe66d, #ff7a59, #36c3ff, #51d88a, #ffe66d);
+}
+
+.page-shell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
   pointer-events: none;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px),
@@ -79,13 +89,17 @@ button {
   --menu-active-bg: rgba(211, 108, 86, 0.22);
   --menu-active-text: #f4f3ef;
   --shadow: rgba(0, 0, 0, 0.32);
+  background: #221b4f;
+}
+
+.page-shell.dark::before {
   background:
     linear-gradient(115deg, rgba(255, 92, 105, 0.52) 0 18%, transparent 18% 100%),
     linear-gradient(245deg, rgba(0, 196, 167, 0.34) 0 24%, transparent 24% 100%),
     conic-gradient(from 210deg at 52% 42%, #221b4f, #7f244d, #0d5c72, #10634c, #221b4f);
 }
 
-.page-shell.dark::before {
+.page-shell.dark::after {
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
@@ -150,6 +164,7 @@ button {
   display: grid;
   width: 100%;
   justify-items: center;
+  align-items: start;
 }
 
 .dice-panel {
@@ -730,6 +745,14 @@ button {
 @media (max-width: 460px) {
   .page-shell {
     padding: 18px;
+  }
+
+  .app-layout {
+    padding-top: 18px;
+  }
+
+  .game-stage {
+    min-height: 600px;
   }
 
   .dice-panel {
