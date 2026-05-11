@@ -42,6 +42,7 @@ a {
   --muted-text: #526157;
   --die-bg: #fbfbf8;
   --dot-bg: #1f2d26;
+  --cube-edge: rgba(31, 45, 38, 0.28);
   --button-bg: #216a53;
   --button-bg-hover: #185942;
   --button-text: #ffffff;
@@ -104,6 +105,7 @@ a {
   --muted-text: #b6c1bc;
   --die-bg: #eef1ec;
   --dot-bg: #151b20;
+  --cube-edge: rgba(21, 27, 32, 0.3);
   --button-bg: #d36c56;
   --button-bg-hover: #bd5944;
   --button-text: #171d20;
@@ -136,6 +138,7 @@ a {
   --muted-text: #fff36d;
   --die-bg: #ffffff;
   --dot-bg: #000000;
+  --cube-edge: #000000;
   --button-bg: #fff36d;
   --button-bg-hover: #00e5ff;
   --button-text: #000000;
@@ -169,6 +172,7 @@ a {
   --muted-text: #46c95b;
   --die-bg: #031707;
   --dot-bg: #7cff8a;
+  --cube-edge: rgba(124, 255, 138, 0.82);
   --button-bg: #7cff8a;
   --button-bg-hover: #b4ffbd;
   --button-text: #001904;
@@ -244,6 +248,7 @@ a {
   --muted-text: #6e4728;
   --die-bg: #d8a35f;
   --dot-bg: #3d2515;
+  --cube-edge: rgba(77, 43, 20, 0.52);
   --button-bg: #6c3f20;
   --button-bg-hover: #553119;
   --button-text: #fff4df;
@@ -284,10 +289,18 @@ a {
 .wood .dice-tray {
   perspective: 1000px;
   perspective-origin: 50% 38%;
+  border-color: rgba(57, 34, 16, 0.72);
   background:
-    linear-gradient(90deg, rgba(255, 235, 190, 0.1), transparent 26%, rgba(64, 34, 16, 0.12) 52%, transparent 78%),
-    repeating-linear-gradient(7deg, rgba(70, 39, 18, 0.14) 0 2px, transparent 2px 17px),
-    rgba(107, 65, 31, 0.2);
+    radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0.08), transparent 46%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.045) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(32deg, rgba(255, 255, 255, 0.028) 0 1px, transparent 1px 8px),
+    linear-gradient(135deg, #1b6b45, #0f4f34 48%, #083a28);
+  box-shadow:
+    inset 0 0 0 5px rgba(93, 53, 25, 0.78),
+    inset 0 0 0 8px rgba(255, 225, 164, 0.1),
+    inset 0 18px 30px rgba(255, 255, 255, 0.05),
+    inset 0 -20px 36px rgba(0, 0, 0, 0.22);
 }
 
 .wood .die {
@@ -312,6 +325,7 @@ a {
 .wood .die.rolling,
 .wood .die.shake-rolling {
   --cube-radius: 14px;
+  --cube-face-fill: #c78643;
 }
 
 .wood .die.rolling,
@@ -371,6 +385,11 @@ a {
 
 .wood .die.shake-rolling .die-cube {
   animation: wood-cube-shake-tumble 360ms cubic-bezier(0.14, 0.84, 0.2, 1.12) infinite;
+}
+
+.wood .die.rolling .cube-face,
+.wood .die.shake-rolling .cube-face {
+  background-color: var(--cube-face-fill);
 }
 
 .app-layout {
@@ -835,7 +854,8 @@ a {
   --die-size: clamp(96px, 18vw, 124px);
   --cube-depth: 62px;
   --cube-radius: 8px;
-  --cube-seam-overlap: 1px;
+  --cube-face-fill: var(--die-bg);
+  --cube-seam-overlap: 2px;
   --die-face-bg: var(--die-bg);
   position: relative;
   overflow: hidden;
@@ -902,6 +922,7 @@ a {
 .cube-face {
   border: 0;
   border-radius: var(--cube-radius);
+  background-color: var(--cube-face-fill);
   outline: 1px solid color-mix(in srgb, var(--dot-bg) 16%, transparent);
   outline-offset: -1px;
   box-shadow:
@@ -990,7 +1011,9 @@ a {
 
 .die.rolling .cube-face,
 .die.shake-rolling .cube-face {
-  box-shadow: none;
+  background-color: var(--cube-face-fill);
+  outline: 0;
+  box-shadow: inset 0 0 0 2px var(--cube-edge);
 }
 
 .die.rolling .die-cube {
