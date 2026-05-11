@@ -13,6 +13,11 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 button {
@@ -51,8 +56,12 @@ button {
 .page-shell::before {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
   z-index: 0;
+  width: 100vw;
+  height: 100lvh;
+  min-height: 100vh;
   pointer-events: none;
   background:
     linear-gradient(115deg, rgba(255, 118, 91, 0.82) 0 18%, transparent 18% 100%),
@@ -63,8 +72,12 @@ button {
 .page-shell::after {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
   z-index: 0;
+  width: 100vw;
+  height: 100lvh;
+  min-height: 100vh;
   pointer-events: none;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px),
