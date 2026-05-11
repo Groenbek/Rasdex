@@ -1,26 +1,27 @@
 const themeOptions = [
-  { icon: "\u2600\uFE0F", labelKey: "light", value: "light" },
-  { icon: "\u{1F319}", labelKey: "dark", value: "dark" },
-  { icon: "\u25D0", labelKey: "contrast", value: "contrast" },
-  { icon: "\u{1F5A5}\uFE0F", labelKey: "terminal", value: "terminal" },
-  { icon: "\u{1FAB6}", labelKey: "wood", value: "wood" },
+    { icon: "\u2600\uFE0F", labelKey: "light", value: "light" },
+    { icon: "\u{1F319}", labelKey: "dark", value: "dark" },
+    //{ icon: "\u25D0", labelKey: "contrast", value: "contrast" },
+    { icon: "\u{1F5A5}\uFE0F", labelKey: "terminal", value: "terminal" },
+    { icon: "\u{1F92E}", labelKey: "ugly", value: "ugly" },
+    { icon: "\u{1FAB6}", labelKey: "wood", value: "wood" },
 ];
 
 export function ThemeToggle({ labels, onChange, theme }) {
-  return (
-    <div className="icon-toggle" aria-label={labels.theme}>
-      {themeOptions.map((option) => (
-        <button
-          className={theme === option.value ? "active" : ""}
-          type="button"
-          onClick={() => onChange(option.value)}
-          aria-label={labels.themeOptions[option.labelKey]}
-          aria-pressed={theme === option.value}
-          key={option.value}
-        >
-          <span className="switch-icon">{option.icon}</span>
-        </button>
-      ))}
-    </div>
-  );
+    return (
+        <div className="icon-toggle" aria-label={labels.theme}>
+            {themeOptions.map((option) => (
+                <button
+                    className={theme === option.value ? "active" : ""}
+                    type="button"
+                    onClick={() => onChange(option.value)}
+                    aria-label={labels.themeOptions[option.labelKey]}
+                    aria-pressed={theme === option.value}
+                    key={option.value}
+                >
+                    <span className="switch-icon">{option.icon}</span>
+                </button>
+            ))}
+        </div>
+    );
 }

@@ -392,6 +392,125 @@ a {
   background-color: var(--cube-face-fill);
 }
 
+.page-shell.ugly {
+  --page-text: #140017;
+  --panel-bg: rgba(255, 255, 255, 0.72);
+  --panel-border: rgba(20, 0, 23, 0.42);
+  --muted-text: #4a004f;
+  --die-bg: #ff4fd8;
+  --dot-bg: #101010;
+  --cube-edge: rgba(20, 0, 23, 0.56);
+  --button-bg: #15ff00;
+  --button-bg-hover: #ffe600;
+  --button-text: #25002b;
+  --control-bg: rgba(255, 255, 255, 0.44);
+  --control-selected: #ff4fd8;
+  --control-selected-text: #101010;
+  --menu-active-bg: rgba(21, 255, 0, 0.28);
+  --menu-active-text: #25002b;
+  --shadow: rgba(67, 0, 73, 0.36);
+  font-family: Papyrus, "Comic Sans MS", "Comic Sans", fantasy, cursive;
+  background: #ff4fd8;
+}
+
+.page-shell.ugly::before {
+  background:
+    repeating-linear-gradient(33deg, rgba(21, 255, 0, 0.72) 0 18px, transparent 18px 37px),
+    repeating-linear-gradient(104deg, rgba(255, 230, 0, 0.72) 0 12px, transparent 12px 31px),
+    linear-gradient(135deg, #ff4fd8 0%, #00e5ff 32%, #ffe600 67%, #15ff00 100%);
+}
+
+.page-shell.ugly::after {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.72) 0 3px, transparent 4px),
+    linear-gradient(90deg, rgba(20, 0, 23, 0.2) 1px, transparent 1px),
+    linear-gradient(rgba(20, 0, 23, 0.16) 1px, transparent 1px);
+  background-size: 34px 34px, 29px 29px, 41px 41px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.84), rgba(0, 0, 0, 0.22));
+}
+
+.ugly .dice-panel,
+.ugly .game-nav,
+.ugly .settings-panel,
+.ugly .rules-card {
+  border-width: 3px;
+  box-shadow:
+    8px 8px 0 rgba(255, 230, 0, 0.76),
+    -7px 10px 0 rgba(21, 255, 0, 0.48),
+    0 24px 70px var(--shadow);
+}
+
+.ugly .dice-tray {
+  border-width: 3px;
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 79, 216, 0.24) 0 12px, transparent 12px 24px),
+    repeating-linear-gradient(45deg, rgba(21, 255, 0, 0.22) 0 10px, transparent 10px 26px),
+    #fff8a9;
+}
+
+.ugly .die {
+  border: 3px solid #140017;
+  box-shadow:
+    inset 0 -10px 0 rgba(20, 0, 23, 0.18),
+    7px 9px 0 rgba(20, 0, 23, 0.2),
+    0 18px 28px rgba(20, 0, 23, 0.22);
+}
+
+.ugly .die-1 {
+  --die-face-bg: #ff4fd8;
+  --cube-face-fill: #ff4fd8;
+  --dot-bg: #101010;
+}
+
+.ugly .die-2 {
+  --die-face-bg: #15ff00;
+  --cube-face-fill: #15ff00;
+  --dot-bg: #3c0058;
+}
+
+.ugly .die-3 {
+  --die-face-bg: #ffe600;
+  --cube-face-fill: #ffe600;
+  --dot-bg: #0037ff;
+}
+
+.ugly .die-4 {
+  --die-face-bg: #00e5ff;
+  --cube-face-fill: #00e5ff;
+  --dot-bg: #7a0014;
+}
+
+.ugly .die-5 {
+  --die-face-bg: #ff6b00;
+  --cube-face-fill: #ff6b00;
+  --dot-bg: #001f19;
+}
+
+.ugly .die-6 {
+  --die-face-bg: #b280ff;
+  --cube-face-fill: #b280ff;
+  --dot-bg: #073b00;
+}
+
+.ugly .die.rolling,
+.ugly .die.shake-rolling {
+  border-color: transparent;
+}
+
+.ugly .dice-tray:hover .die {
+  box-shadow:
+    inset 0 -10px 0 rgba(20, 0, 23, 0.2),
+    9px 11px 0 rgba(20, 0, 23, 0.22),
+    0 22px 34px rgba(20, 0, 23, 0.24);
+}
+
+.ugly .life-die .die {
+  border-width: 2px;
+  box-shadow:
+    inset 0 -4px 0 rgba(20, 0, 23, 0.18),
+    3px 4px 0 rgba(20, 0, 23, 0.2);
+}
+
 .app-layout {
   position: relative;
   z-index: 1;
@@ -852,10 +971,10 @@ a {
 
 .die {
   --die-size: clamp(96px, 18vw, 124px);
-  --cube-depth: 62px;
+  --cube-depth: calc(var(--die-size) / 2);
   --cube-radius: 8px;
   --cube-face-fill: var(--die-bg);
-  --cube-seam-overlap: 2px;
+  --cube-seam-overlap: 5px;
   --die-face-bg: var(--die-bg);
   position: relative;
   overflow: hidden;
@@ -931,27 +1050,27 @@ a {
 }
 
 .cube-face-front {
-  transform: translateZ(calc(var(--cube-depth) - var(--cube-seam-overlap)));
+  transform: translateZ(var(--cube-depth));
 }
 
 .cube-face-back {
-  transform: rotateY(180deg) translateZ(calc(var(--cube-depth) - var(--cube-seam-overlap)));
+  transform: rotateY(180deg) translateZ(var(--cube-depth));
 }
 
 .cube-face-right {
-  transform: rotateY(90deg) translateZ(calc(var(--cube-depth) - var(--cube-seam-overlap)));
+  transform: rotateY(90deg) translateZ(var(--cube-depth));
 }
 
 .cube-face-left {
-  transform: rotateY(-90deg) translateZ(calc(var(--cube-depth) - var(--cube-seam-overlap)));
+  transform: rotateY(-90deg) translateZ(var(--cube-depth));
 }
 
 .cube-face-top {
-  transform: rotateX(90deg) translateZ(calc(var(--cube-depth) - var(--cube-seam-overlap)));
+  transform: rotateX(90deg) translateZ(var(--cube-depth));
 }
 
 .cube-face-bottom {
-  transform: rotateX(-90deg) translateZ(calc(var(--cube-depth) - var(--cube-seam-overlap)));
+  transform: rotateX(-90deg) translateZ(var(--cube-depth));
 }
 
 .die::after {
@@ -1619,7 +1738,7 @@ a {
 
   .die {
     --die-size: clamp(94px, 28vw, 112px);
-    --cube-depth: 56px;
+    --cube-depth: calc(var(--die-size) / 2);
     max-width: 84%;
   }
 

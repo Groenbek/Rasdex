@@ -51,7 +51,7 @@ export function Die({ value, index = 0, rolling, shakeRolling }) {
 
   return (
     <div
-      className={`die ${rollClass}`}
+      className={`die die-${(index % 6) + 1} ${rollClass}`}
       style={{
         "--roll-delay": `${timing.delay}ms`,
         "--roll-duration": `${timing.duration}ms`,
