@@ -34,28 +34,26 @@ export function MeyerGame({ controls, text }) {
         {rolling ? text.rolling : text.roll}
       </button>
 
-      <div className="panel-actions">
-        <div className="meyer-info-buttons" aria-label={text.meyer.helpLabel}>
-          <button
-            className="rules-button"
-            type="button"
-            onClick={() => setInfoOpen("rules")}
-            aria-label={text.meyer.rulesTitle}
-          >
-            {"\u2753"}
-          </button>
-
-          <button
-            className="strategy-button"
-            type="button"
-            onClick={() => setInfoOpen("strategy")}
-            aria-label={text.meyer.strategyTitle}
-          >
-            {"\u{1F4A1}"}
-          </button>
-        </div>
+      <div className="panel-actions meyer-actions" aria-label={text.meyer.helpLabel}>
+        <button
+          className="rules-button"
+          type="button"
+          onClick={() => setInfoOpen("rules")}
+          aria-label={text.meyer.rulesTitle}
+        >
+          {"\u2753"}
+        </button>
 
         {controls}
+
+        <button
+          className="strategy-button"
+          type="button"
+          onClick={() => setInfoOpen("strategy")}
+          aria-label={text.meyer.strategyTitle}
+        >
+          {"\u{1F4A1}"}
+        </button>
       </div>
 
       {infoOpen && <MeyerInfo text={text} type={infoOpen} onClose={() => setInfoOpen(null)} />}

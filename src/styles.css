@@ -1045,6 +1045,17 @@ button {
     padding: 24px;
   }
 
+  .settings-panel {
+    position: fixed;
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    left: 50%;
+    width: calc(100vw - 36px);
+    max-width: 300px;
+    transform: translate(-50%, -50%);
+  }
+
   .top-bar {
     justify-content: center;
   }
