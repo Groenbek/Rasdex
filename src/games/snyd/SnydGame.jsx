@@ -39,7 +39,7 @@ export function SnydGame({ controls, shakeToRoll, text }) {
     }, 350);
   }
 
-  useShakeToRoll({
+  const shaking = useShakeToRoll({
     canRoll: !rolling && !lost,
     enabled: shakeToRoll,
     onRoll: handleRoll,
@@ -73,7 +73,7 @@ export function SnydGame({ controls, shakeToRoll, text }) {
 
       <DiceTray
         dice={dice}
-        rolling={rolling}
+        rolling={rolling || shaking}
         label={text.rollDiceLabel(diceCount)}
       />
 

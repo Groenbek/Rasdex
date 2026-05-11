@@ -101,7 +101,7 @@ export function SettingsMenu({
               <span>Shake to throw</span>
               <span className="settings-switch-state">{shakeToRoll ? "On" : "Off"}</span>
             </button>
-            <span className="settings-hint">Shake for 2 seconds to roll.</span>
+            <span className="settings-hint">Shake for 1 second to roll.</span>
           </div>
 
           <div className="settings-section">

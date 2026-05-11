@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const shakeThreshold = 11;
-const shakeDuration = 2000;
+const shakeDuration = 1000;
 const shakeGapTolerance = 260;
 const rollCooldown = 1200;
 
@@ -32,8 +32,10 @@ function getMotionDelta(current, previous) {
 }
 
 export function useShakeToRoll({ canRoll = true, enabled, onRoll }) {
+  const [shaking, setShaking] = useState(false);
   const onRollRef = useRef(onRoll);
   const canRollRef = useRef(canRoll);
+  const shakeStopTimerRef = useRef(null);
 
   useEffect(() => {
     onRollRef.current = onRoll;
@@ -45,6 +47,7 @@ export function useShakeToRoll({ canRoll = true, enabled, onRoll }) {
 
   useEffect(() => {
     if (!enabled || typeof window === "undefined") {
+      setShaking(false);
       return undefined;
     }
 
@@ -56,6 +59,16 @@ export function useShakeToRoll({ canRoll = true, enabled, onRoll }) {
     function resetShake() {
       shakeStartedAt = 0;
       lastShakeAt = 0;
+      setShaking(false);
+    }
+
+    function keepShakeAnimationAlive() {
+      setShaking(true);
+
+      window.clearTimeout(shakeStopTimerRef.current);
+      shakeStopTimerRef.current = window.setTimeout(() => {
+        setShaking(false);
+      }, shakeGapTolerance);
     }
 
     function handleMotion(event) {
@@ -82,6 +95,7 @@ export function useShakeToRoll({ canRoll = true, enabled, onRoll }) {
       }
 
       lastShakeAt = now;
+      keepShakeAnimationAlive();
 
       if (
         canRollRef.current &&
@@ -98,6 +112,10 @@ export function useShakeToRoll({ canRoll = true, enabled, onRoll }) {
 
     return () => {
       window.removeEventListener("devicemotion", handleMotion);
+      window.clearTimeout(shakeStopTimerRef.current);
+      setShaking(false);
     };
   }, [enabled]);
+
+  return shaking;
 }
