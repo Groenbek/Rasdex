@@ -1,4 +1,4 @@
-import lifeLostSound from "../data/sounds/lifelost.mp3";
+import lifeLostSound from "../data/sounds/lifelostNEW.mp3";
 import youLostSound from "../data/sounds/you lost.mp3";
 
 function playSound(source, volume = 0.65) {
