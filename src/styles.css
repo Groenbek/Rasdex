@@ -226,6 +226,97 @@ button {
     0 8px 16px rgba(0, 0, 0, 0.36);
 }
 
+.page-shell.wood {
+  --page-text: #2a1b12;
+  --panel-bg: rgba(226, 193, 143, 0.9);
+  --panel-border: rgba(83, 48, 24, 0.34);
+  --muted-text: #6e4728;
+  --die-bg: #d8a35f;
+  --dot-bg: #3d2515;
+  --button-bg: #6c3f20;
+  --button-bg-hover: #553119;
+  --button-text: #fff4df;
+  --control-bg: rgba(112, 70, 35, 0.14);
+  --control-selected: #4a2b17;
+  --control-selected-text: #fff0d4;
+  --menu-active-bg: rgba(92, 53, 25, 0.22);
+  --menu-active-text: #2a1b12;
+  --shadow: rgba(50, 28, 12, 0.34);
+  background: #7b4a28;
+}
+
+.page-shell.wood::before {
+  background:
+    linear-gradient(90deg, rgba(255, 232, 184, 0.12), transparent 14%, rgba(69, 36, 16, 0.18) 28%, transparent 44%),
+    repeating-linear-gradient(8deg, rgba(52, 29, 14, 0.2) 0 2px, transparent 2px 18px),
+    radial-gradient(ellipse at 24% 18%, rgba(255, 226, 168, 0.22), transparent 34%),
+    linear-gradient(135deg, #9a6333 0%, #6f3f22 42%, #b1773d 70%, #563018 100%);
+}
+
+.page-shell.wood::after {
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255, 232, 180, 0.08) 0 2px, transparent 2px 38px),
+    repeating-linear-gradient(0deg, rgba(54, 29, 13, 0.11) 0 1px, transparent 1px 9px);
+  background-size: auto;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.14));
+}
+
+.wood .dice-panel,
+.wood .game-nav,
+.wood .settings-panel,
+.wood .rules-card {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 238, 198, 0.28),
+    0 24px 70px var(--shadow);
+}
+
+.wood .dice-tray {
+  background:
+    linear-gradient(90deg, rgba(255, 235, 190, 0.1), transparent 26%, rgba(64, 34, 16, 0.12) 52%, transparent 78%),
+    repeating-linear-gradient(7deg, rgba(70, 39, 18, 0.14) 0 2px, transparent 2px 17px),
+    rgba(107, 65, 31, 0.2);
+}
+
+.wood .die {
+  border: 2px solid rgba(77, 43, 20, 0.7);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 26% 20%, rgba(255, 231, 176, 0.48), transparent 20%),
+    linear-gradient(90deg, rgba(91, 48, 21, 0.16), transparent 18%, rgba(255, 231, 174, 0.15) 42%, transparent 70%),
+    repeating-linear-gradient(9deg, rgba(87, 46, 20, 0.18) 0 2px, transparent 2px 13px),
+    linear-gradient(135deg, #f1c47b, #c78643 46%, #8f5228);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 232, 176, 0.16),
+    inset 0 -12px 0 rgba(74, 38, 17, 0.2),
+    0 16px 28px rgba(55, 31, 14, 0.34);
+}
+
+.wood .dot {
+  width: 20%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(112, 68, 36, 0.8), transparent 34%),
+    #2f1b0f;
+  box-shadow:
+    inset 0 2px 3px rgba(0, 0, 0, 0.58),
+    0 1px 0 rgba(255, 226, 168, 0.22);
+}
+
+.wood .dice-tray:hover .die {
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 232, 176, 0.2),
+    inset 0 -12px 0 rgba(74, 38, 17, 0.22),
+    0 20px 34px rgba(55, 31, 14, 0.38);
+}
+
+.wood .life-die .die {
+  border-width: 1px;
+  border-radius: 9px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 232, 176, 0.14),
+    inset 0 -4px 0 rgba(74, 38, 17, 0.22),
+    0 8px 16px rgba(55, 31, 14, 0.28);
+}
+
 .app-layout {
   position: relative;
   z-index: 1;

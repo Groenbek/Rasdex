@@ -3,6 +3,7 @@ const themeOptions = [
   { icon: "\u{1F319}", labelKey: "dark", value: "dark" },
   { icon: "\u25D0", labelKey: "contrast", value: "contrast" },
   { icon: "\u{1F5A5}\uFE0F", labelKey: "terminal", value: "terminal" },
+  { icon: "\u{1FAB6}", labelKey: "wood", value: "wood" },
 ];
 
 export function ThemeToggle({ labels, onChange, theme }) {
