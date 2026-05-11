@@ -9,7 +9,11 @@ const dotPositions = {
 
 export function Die({ value, rolling }) {
   return (
-    <div className={`die ${rolling ? "rolling" : ""}`} aria-label={`Die showing ${value}`}>
+    <div
+      className={`die ${rolling ? "rolling" : ""}`}
+      style={{ "--roll-offset": `${value * 2}deg` }}
+      aria-label={`Die showing ${value}`}
+    >
       {dotPositions[value].map((position) => (
         <span className={`dot ${position}`} key={position} />
       ))}

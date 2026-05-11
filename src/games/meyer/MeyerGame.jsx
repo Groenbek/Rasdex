@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DiceTray } from "../../components/DiceTray";
+import { playDiceRollSound } from "../../utils/playDiceRollSound";
 import { MeyerInfo } from "./MeyerInfo";
 
 function rollMeyerDice() {
@@ -13,6 +14,7 @@ export function MeyerGame({ controls, text }) {
 
   function handleRoll() {
     setRolling(true);
+    playDiceRollSound();
 
     setTimeout(() => {
       setDice(rollMeyerDice());

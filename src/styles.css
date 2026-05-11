@@ -366,7 +366,8 @@ button {
 
 .die {
   position: relative;
-  width: min(100%, 132px);
+  overflow: hidden;
+  width: min(88%, 124px);
   aspect-ratio: 1;
   border-radius: 8px;
   background: var(--die-bg);
@@ -376,6 +377,15 @@ button {
   transition:
     transform 160ms ease,
     box-shadow 160ms ease;
+}
+
+.die::after {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  opacity: 0;
+  background: linear-gradient(115deg, transparent 34%, rgba(255, 255, 255, 0.72) 46%, transparent 58%);
+  transform: translateX(-62%) rotate(12deg);
 }
 
 .dice-tray:hover .die {
@@ -401,7 +411,11 @@ button {
 }
 
 .die.rolling {
-  animation: tumble 350ms ease-in-out;
+  animation: tumble 700ms cubic-bezier(0.2, 0.86, 0.28, 1.08);
+}
+
+.die.rolling::after {
+  animation: shine-roll 700ms ease-out;
 }
 
 .dot {
@@ -730,15 +744,53 @@ button {
 
 @keyframes tumble {
   0% {
-    transform: rotate(0deg) scale(1);
+    filter: blur(0);
+    transform: translateY(0) rotate(0deg) scale(1);
   }
 
-  45% {
-    transform: rotate(18deg) scale(0.94);
+  18% {
+    filter: blur(0.5px);
+    transform: translateY(-2px) rotate(calc(-8deg + var(--roll-offset))) scale(1);
+  }
+
+  42% {
+    filter: blur(0.9px);
+    transform: translateY(2px) rotate(calc(10deg + var(--roll-offset))) scale(1);
+  }
+
+  66% {
+    filter: blur(0.6px);
+    transform: translateY(-1px) rotate(calc(-6deg + var(--roll-offset))) scale(1);
+  }
+
+  84% {
+    filter: blur(0);
+    transform: translateY(1px) rotate(4deg) scale(1);
   }
 
   100% {
-    transform: rotate(0deg) scale(1);
+    filter: blur(0);
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes shine-roll {
+  0% {
+    opacity: 0;
+    transform: translateX(-62%) rotate(12deg);
+  }
+
+  25% {
+    opacity: 0.72;
+  }
+
+  70% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(62%) rotate(12deg);
   }
 }
 
@@ -765,5 +817,10 @@ button {
 
   .dice-tray {
     grid-template-columns: repeat(2, minmax(86px, 1fr));
+    gap: 18px;
+  }
+
+  .die {
+    width: min(84%, 112px);
   }
 }

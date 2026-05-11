@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DiceTray } from "../../components/DiceTray";
 import { Die } from "../../components/Die";
+import { playDiceRollSound } from "../../utils/playDiceRollSound";
 import { SnydRules } from "./SnydRules";
 
 const diceOptions = [1, 2, 3, 4, 5, 6];
@@ -28,6 +29,7 @@ export function SnydGame({ controls, text }) {
     }
 
     setRolling(true);
+    playDiceRollSound();
 
     setTimeout(() => {
       setDice(rollDice(diceCount));
