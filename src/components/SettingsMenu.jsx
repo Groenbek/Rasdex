@@ -4,10 +4,13 @@ import { Flag } from "./Flag";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function SettingsMenu({
+  keepScreenAwake,
   language,
+  onKeepScreenAwakeChange,
   onLanguageChange,
   onShakeToRollChange,
   onThemeChange,
+  screenWakeLock,
   shakeToRoll,
   text,
   theme,
@@ -79,6 +82,28 @@ export function SettingsMenu({
           <div className="settings-section">
             <span className="settings-label">{text.settings.color}</span>
             <ThemeToggle labels={text.settings} theme={theme} onChange={onThemeChange} />
+          </div>
+
+          <div className="settings-section">
+            <span className="settings-label">{text.settings.screen}</span>
+            <button
+              className={`settings-switch ${keepScreenAwake && screenWakeLock.active ? "active" : ""}`}
+              type="button"
+              onClick={() => onKeepScreenAwakeChange(!keepScreenAwake)}
+              role="switch"
+              aria-checked={keepScreenAwake && screenWakeLock.active}
+              disabled={!screenWakeLock.supported}
+            >
+              <span>{text.settings.keepAwake}</span>
+              <span className="settings-switch-state">
+                {keepScreenAwake && screenWakeLock.active ? text.settings.on : text.settings.off}
+              </span>
+            </button>
+            <span className="settings-hint">
+              {screenWakeLock.supported
+                ? text.settings.keepAwakeHint
+                : text.settings.keepAwakeUnsupported}
+            </span>
           </div>
 
           <div className="settings-section">

@@ -581,6 +581,12 @@ button {
   background: var(--menu-active-bg);
 }
 
+.settings-switch:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+  transform: none;
+}
+
 .settings-switch-state {
   flex: 0 0 auto;
   color: var(--muted-text);

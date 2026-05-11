@@ -4,19 +4,25 @@ import { SettingsMenu } from "./components/SettingsMenu";
 import { languages } from "./data/languages";
 import { MeyerGame } from "./games/meyer/MeyerGame";
 import { SnydGame } from "./games/snyd/SnydGame";
+import { useScreenWakeLock } from "./hooks/useScreenWakeLock";
 
 export function App() {
   const [theme, setTheme] = useState("dark");
   const [language, setLanguage] = useState("en");
   const [activeGame, setActiveGame] = useState("snyd");
   const [shakeToRoll, setShakeToRoll] = useState(false);
+  const [keepScreenAwake, setKeepScreenAwake] = useState(false);
+  const screenWakeLock = useScreenWakeLock(keepScreenAwake);
   const text = languages[language];
   const controls = (
     <SettingsMenu
+      keepScreenAwake={keepScreenAwake}
       language={language}
+      onKeepScreenAwakeChange={setKeepScreenAwake}
       onLanguageChange={setLanguage}
       onShakeToRollChange={setShakeToRoll}
       onThemeChange={setTheme}
+      screenWakeLock={screenWakeLock}
       shakeToRoll={shakeToRoll}
       text={text}
       theme={theme}
