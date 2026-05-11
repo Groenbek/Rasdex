@@ -4,6 +4,8 @@ import { useShakeToRoll } from "../../hooks/useShakeToRoll";
 import { playDiceRollSound } from "../../utils/playDiceRollSound";
 import { MeyerInfo } from "./MeyerInfo";
 
+const rollSettleMs = 820;
+
 function rollMeyerDice() {
   return Array.from({ length: 2 }, () => Math.floor(Math.random() * 6) + 1);
 }
@@ -26,7 +28,7 @@ export function MeyerGame({ controls, shakeToRoll, text }) {
     setTimeout(() => {
       setDice(rollMeyerDice());
       setRolling(false);
-    }, 350);
+    }, rollSettleMs);
   }
 
   const shaking = useShakeToRoll({

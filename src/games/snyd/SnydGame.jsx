@@ -7,6 +7,7 @@ import { playDiceRollSound } from "../../utils/playDiceRollSound";
 import { SnydRules } from "./SnydRules";
 
 const diceOptions = [1, 2, 3, 4, 5, 6];
+const rollSettleMs = 820;
 
 function rollDice(count) {
   return Array.from({ length: count }, () => Math.floor(Math.random() * 6) + 1);
@@ -43,7 +44,7 @@ export function SnydGame({ controls, shakeToRoll, text }) {
     setTimeout(() => {
       setDice(rollDice(diceCount));
       setRolling(false);
-    }, 350);
+    }, rollSettleMs);
   }
 
   const shaking = useShakeToRoll({

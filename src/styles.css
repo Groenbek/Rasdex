@@ -291,15 +291,16 @@ a {
 }
 
 .wood .die {
-  overflow: visible;
-  transform-style: preserve-3d;
-  border: 2px solid rgba(77, 43, 20, 0.7);
-  border-radius: 14px;
-  background:
+  --die-face-bg:
     radial-gradient(circle at 26% 20%, rgba(255, 231, 176, 0.48), transparent 20%),
     linear-gradient(90deg, rgba(91, 48, 21, 0.16), transparent 18%, rgba(255, 231, 174, 0.15) 42%, transparent 70%),
     repeating-linear-gradient(9deg, rgba(87, 46, 20, 0.18) 0 2px, transparent 2px 13px),
     linear-gradient(135deg, #f1c47b, #c78643 46%, #8f5228);
+  overflow: visible;
+  transform-style: preserve-3d;
+  border: 2px solid rgba(77, 43, 20, 0.7);
+  border-radius: 14px;
+  background: var(--die-face-bg);
   box-shadow:
     inset 0 0 0 2px rgba(255, 232, 176, 0.16),
     inset 0 -12px 0 rgba(74, 38, 17, 0.2),
@@ -307,16 +308,7 @@ a {
 }
 
 .wood .die::before {
-  content: "";
-  position: absolute;
-  inset: 7%;
-  z-index: -1;
-  border-radius: 12px;
-  background:
-    repeating-linear-gradient(12deg, rgba(63, 31, 13, 0.22) 0 2px, transparent 2px 12px),
-    linear-gradient(135deg, #9b5a2c, #5c3018);
-  box-shadow: 10px 12px 20px rgba(45, 24, 11, 0.42);
-  transform: translate3d(10px, 10px, -18px);
+  display: none;
 }
 
 .wood .die::after {
@@ -354,12 +346,20 @@ a {
   animation: wood-tumble 820ms cubic-bezier(0.18, 0.86, 0.22, 1.1);
 }
 
+.wood .die.rolling .die-cube {
+  animation: wood-cube-tumble 820ms cubic-bezier(0.18, 0.86, 0.22, 1.1);
+}
+
 .wood .die.shake-rolling {
   animation: wood-shake-tumble 360ms cubic-bezier(0.14, 0.84, 0.2, 1.12) infinite;
   box-shadow:
     inset 0 0 0 2px rgba(255, 232, 176, 0.18),
     inset 0 -14px 0 rgba(74, 38, 17, 0.24),
     0 26px 44px rgba(55, 31, 14, 0.42);
+}
+
+.wood .die.shake-rolling .die-cube {
+  animation: wood-cube-shake-tumble 360ms cubic-bezier(0.14, 0.84, 0.2, 1.12) infinite;
 }
 
 .app-layout {
@@ -818,12 +818,14 @@ a {
 }
 
 .die {
+  --cube-depth: clamp(48px, 9vw, 62px);
+  --die-face-bg: var(--die-bg);
   position: relative;
   overflow: hidden;
   width: min(88%, 124px);
   aspect-ratio: 1;
   border-radius: 8px;
-  background: var(--die-bg);
+  background: var(--die-face-bg);
   transform-style: preserve-3d;
   box-shadow:
     inset 0 -8px 0 rgba(0, 0, 0, 0.08),
@@ -836,6 +838,7 @@ a {
 .die::before {
   content: "";
   position: absolute;
+  display: none;
   inset: 6%;
   z-index: -1;
   border-radius: inherit;
@@ -846,6 +849,60 @@ a {
   box-shadow: 12px 14px 22px rgba(28, 37, 31, 0.26);
   transform: translate3d(13px, 13px, -28px);
   transition: opacity 160ms ease;
+}
+
+.die-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  background: var(--die-face-bg);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.die-result-face {
+  opacity: 1;
+  transition: opacity 90ms ease;
+}
+
+.die-cube {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+.cube-face {
+  border: 1px solid color-mix(in srgb, var(--dot-bg) 22%, transparent);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 -10px 18px rgba(0, 0, 0, 0.1);
+}
+
+.cube-face-front {
+  transform: translateZ(var(--cube-depth));
+}
+
+.cube-face-back {
+  transform: rotateY(180deg) translateZ(var(--cube-depth));
+}
+
+.cube-face-right {
+  transform: rotateY(90deg) translateZ(var(--cube-depth));
+}
+
+.cube-face-left {
+  transform: rotateY(-90deg) translateZ(var(--cube-depth));
+}
+
+.cube-face-top {
+  transform: rotateX(90deg) translateZ(var(--cube-depth));
+}
+
+.cube-face-bottom {
+  transform: rotateX(-90deg) translateZ(var(--cube-depth));
 }
 
 .die::after {
@@ -896,9 +953,22 @@ a {
     0 22px 42px rgba(28, 37, 31, 0.34);
 }
 
-.die.rolling::before,
-.die.shake-rolling::before {
+.die.rolling .die-cube,
+.die.shake-rolling .die-cube {
   opacity: 1;
+}
+
+.die.rolling .die-cube {
+  animation: cube-tumble 700ms cubic-bezier(0.18, 0.86, 0.22, 1.08);
+}
+
+.die.shake-rolling .die-cube {
+  animation: cube-shake-tumble 360ms cubic-bezier(0.14, 0.84, 0.2, 1.12) infinite;
+}
+
+.die.rolling .die-result-face,
+.die.shake-rolling .die-result-face {
+  opacity: 0;
 }
 
 .die.rolling::after,
@@ -1094,22 +1164,19 @@ a {
   place-items: center;
   padding: 18px;
   border-radius: 8px;
-  background: rgba(248, 249, 246, 0.82);
-  backdrop-filter: blur(10px);
+  background: rgba(23, 33, 27, 0.22);
+  backdrop-filter: blur(8px) brightness(0.88);
 }
 
 .dark .rules-overlay,
 .contrast .rules-overlay,
 .terminal .rules-overlay {
-  background: rgba(17, 23, 29, 0.86);
+  background: rgba(17, 23, 29, 0.42);
 }
 
 .wood .rules-overlay {
-  background:
-    linear-gradient(rgba(50, 28, 12, 0.5), rgba(50, 28, 12, 0.5)),
-    linear-gradient(90deg, rgba(255, 232, 184, 0.12), transparent 14%, rgba(69, 36, 16, 0.18) 28%, transparent 44%),
-    repeating-linear-gradient(8deg, rgba(52, 29, 14, 0.2) 0 2px, transparent 2px 18px),
-    linear-gradient(135deg, #9a6333 0%, #6f3f22 42%, #b1773d 70%, #563018 100%);
+  background: rgba(50, 28, 12, 0.34);
+  backdrop-filter: blur(7px) brightness(0.82) saturate(1.05);
 }
 
 .rules-card {
@@ -1312,6 +1379,54 @@ a {
   }
 }
 
+@keyframes cube-tumble {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+
+  16% {
+    transform: rotateX(104deg) rotateY(-76deg) rotateZ(22deg);
+  }
+
+  38% {
+    transform: rotateX(226deg) rotateY(154deg) rotateZ(-36deg);
+  }
+
+  62% {
+    transform: rotateX(344deg) rotateY(286deg) rotateZ(31deg);
+  }
+
+  82% {
+    transform: rotateX(438deg) rotateY(402deg) rotateZ(-12deg);
+  }
+
+  100% {
+    transform: rotateX(540deg) rotateY(540deg) rotateZ(0deg);
+  }
+}
+
+@keyframes cube-shake-tumble {
+  0% {
+    transform: rotateX(38deg) rotateY(-44deg) rotateZ(-12deg);
+  }
+
+  24% {
+    transform: rotateX(158deg) rotateY(98deg) rotateZ(26deg);
+  }
+
+  50% {
+    transform: rotateX(282deg) rotateY(224deg) rotateZ(-32deg);
+  }
+
+  76% {
+    transform: rotateX(406deg) rotateY(346deg) rotateZ(24deg);
+  }
+
+  100% {
+    transform: rotateX(518deg) rotateY(476deg) rotateZ(-12deg);
+  }
+}
+
 @keyframes wood-tumble {
   0% {
     filter: blur(0);
@@ -1344,6 +1459,32 @@ a {
   }
 }
 
+@keyframes wood-cube-tumble {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+
+  14% {
+    transform: rotateX(122deg) rotateY(-82deg) rotateZ(24deg);
+  }
+
+  34% {
+    transform: rotateX(258deg) rotateY(136deg) rotateZ(-42deg);
+  }
+
+  56% {
+    transform: rotateX(402deg) rotateY(288deg) rotateZ(38deg);
+  }
+
+  78% {
+    transform: rotateX(536deg) rotateY(432deg) rotateZ(-18deg);
+  }
+
+  100% {
+    transform: rotateX(720deg) rotateY(630deg) rotateZ(0deg);
+  }
+}
+
 @keyframes wood-shake-tumble {
   0% {
     filter: blur(0);
@@ -1368,6 +1509,28 @@ a {
   100% {
     filter: blur(0);
     transform: translate3d(-10px, 4px, 34px) rotateX(400deg) rotateY(326deg) rotateZ(calc(-24deg + var(--roll-offset))) scale(1.16);
+  }
+}
+
+@keyframes wood-cube-shake-tumble {
+  0% {
+    transform: rotateX(44deg) rotateY(-52deg) rotateZ(-16deg);
+  }
+
+  24% {
+    transform: rotateX(188deg) rotateY(112deg) rotateZ(34deg);
+  }
+
+  50% {
+    transform: rotateX(328deg) rotateY(262deg) rotateZ(-42deg);
+  }
+
+  76% {
+    transform: rotateX(492deg) rotateY(418deg) rotateZ(28deg);
+  }
+
+  100% {
+    transform: rotateX(644deg) rotateY(592deg) rotateZ(-16deg);
   }
 }
 
