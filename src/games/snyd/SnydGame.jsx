@@ -19,10 +19,16 @@ export function SnydGame({ controls, shakeToRoll, text }) {
   const [lost, setLost] = useState(false);
   const [rulesOpen, setRulesOpen] = useState(false);
   const [rolling, setRolling] = useState(false);
+  const [started, setStarted] = useState(false);
 
   function changeDiceCount(count) {
     setDiceCount(count);
-    setDice(rollDice(count));
+
+    if (started) {
+      setDice(rollDice(count));
+    } else {
+      setDice(Array.from({ length: count }, () => 1));
+    }
   }
 
   function handleRoll() {
@@ -31,6 +37,7 @@ export function SnydGame({ controls, shakeToRoll, text }) {
     }
 
     setRolling(true);
+    setStarted(true);
     playDiceRollSound();
 
     setTimeout(() => {
@@ -77,6 +84,12 @@ export function SnydGame({ controls, shakeToRoll, text }) {
         shakeRolling={shaking}
         label={text.rollDiceLabel(diceCount)}
       />
+
+      {!started && !rolling && (
+        <div className="start-overlay" aria-live="polite">
+          <p>{text.startPrompt}</p>
+        </div>
+      )}
 
       <div className="dice-count" aria-label="Number of dice">
         {diceOptions.map((count) => (

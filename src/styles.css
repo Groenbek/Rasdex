@@ -641,6 +641,32 @@ button {
   background: var(--control-bg);
 }
 
+.start-overlay {
+  position: absolute;
+  top: 116px;
+  left: 34px;
+  right: 34px;
+  z-index: 3;
+  display: grid;
+  min-height: 198px;
+  place-items: center;
+  padding: 24px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  color: var(--page-text);
+  background: color-mix(in srgb, var(--panel-bg) 92%, transparent);
+  backdrop-filter: blur(12px);
+  text-align: center;
+}
+
+.start-overlay p {
+  max-width: 260px;
+  margin: 0;
+  font-size: clamp(1.35rem, 6vw, 2.1rem);
+  font-weight: 900;
+  line-height: 1.08;
+}
+
 .meyer-panel .dice-tray {
   grid-template-columns: repeat(2, minmax(96px, 1fr));
 }
@@ -1132,6 +1158,12 @@ button {
 
   .dice-panel {
     padding: 24px;
+  }
+
+  .start-overlay {
+    top: 106px;
+    left: 24px;
+    right: 24px;
   }
 
   .settings-panel {

@@ -12,6 +12,7 @@ export function MeyerGame({ controls, shakeToRoll, text }) {
   const [dice, setDice] = useState([1, 2]);
   const [rolling, setRolling] = useState(false);
   const [infoOpen, setInfoOpen] = useState(null);
+  const [started, setStarted] = useState(false);
 
   function handleRoll() {
     if (rolling) {
@@ -19,6 +20,7 @@ export function MeyerGame({ controls, shakeToRoll, text }) {
     }
 
     setRolling(true);
+    setStarted(true);
     playDiceRollSound();
 
     setTimeout(() => {
@@ -40,6 +42,12 @@ export function MeyerGame({ controls, shakeToRoll, text }) {
       </header>
 
       <DiceTray dice={dice} rolling={rolling} shakeRolling={shaking} label={text.meyer.rollLabel} />
+
+      {!started && !rolling && (
+        <div className="start-overlay" aria-live="polite">
+          <p>{text.startPrompt}</p>
+        </div>
+      )}
 
       <button className="roll-button" type="button" onClick={handleRoll} disabled={rolling}>
         {rolling ? text.rolling : text.roll}
