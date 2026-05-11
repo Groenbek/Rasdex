@@ -41,6 +41,14 @@ export function App() {
         <main className={`page-shell ${theme}`}>
             <div className="app-layout">
                 <header className="game-header">
+                    {theme === "football" && (
+                        <img
+                            className="football-logo"
+                            src="/bayern-logo-2024.svg"
+                            alt="FC Bayern Munich logo"
+                        />
+                    )}
+
                     <nav className="game-nav" aria-label="Game selection">
                         <button
                             className={activeGame === "snyd" ? "active" : ""}

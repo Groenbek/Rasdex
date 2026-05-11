@@ -3,6 +3,7 @@ const themeOptions = [
     { icon: "\u{1F319}", labelKey: "dark", value: "dark" },
     //{ icon: "\u25D0", labelKey: "contrast", value: "contrast" },
     { icon: "\u{1F5A5}\uFE0F", labelKey: "terminal", value: "terminal" },
+    { icon: "\u26BD", labelKey: "football", value: "football" },
     { icon: "\u{1F92E}", labelKey: "ugly", value: "ugly" },
     { icon: "\u{1FAB6}", labelKey: "wood", value: "wood" },
 ];
