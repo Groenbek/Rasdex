@@ -73,7 +73,8 @@ export function SnydGame({ controls, shakeToRoll, text }) {
 
       <DiceTray
         dice={dice}
-        rolling={rolling || shaking}
+        rolling={rolling}
+        shakeRolling={shaking}
         label={text.rollDiceLabel(diceCount)}
       />
 

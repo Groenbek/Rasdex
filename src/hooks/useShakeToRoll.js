@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const shakeThreshold = 11;
-const shakeDuration = 1000;
+const shakeDuration = 500;
 const shakeGapTolerance = 260;
 const rollCooldown = 1200;
 

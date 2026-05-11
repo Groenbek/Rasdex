@@ -39,7 +39,7 @@ export function MeyerGame({ controls, shakeToRoll, text }) {
         <h1>Meyer</h1>
       </header>
 
-      <DiceTray dice={dice} rolling={rolling || shaking} label={text.meyer.rollLabel} />
+      <DiceTray dice={dice} rolling={rolling} shakeRolling={shaking} label={text.meyer.rollLabel} />
 
       <button className="roll-button" type="button" onClick={handleRoll} disabled={rolling}>
         {rolling ? text.rolling : text.roll}

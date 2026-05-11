@@ -7,10 +7,12 @@ const dotPositions = {
   6: ["top-left", "top-right", "middle-left", "middle-right", "bottom-left", "bottom-right"],
 };
 
-export function Die({ value, rolling }) {
+export function Die({ value, rolling, shakeRolling }) {
+  const rollClass = shakeRolling ? "shake-rolling" : rolling ? "rolling" : "";
+
   return (
     <div
-      className={`die ${rolling ? "rolling" : ""}`}
+      className={`die ${rollClass}`}
       style={{ "--roll-offset": `${value * 2}deg` }}
       aria-label={`Die showing ${value}`}
     >
