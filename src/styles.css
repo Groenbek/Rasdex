@@ -655,20 +655,22 @@ a {
 }
 
 .settings-panel {
-  position: absolute;
-  right: 50%;
-  bottom: calc(100% + 12px);
+  position: fixed;
+  top: 50%;
+  left: 50%;
   z-index: 8;
   display: grid;
-  width: min(84vw, 260px);
+  width: min(calc(100vw - 36px), 300px);
+  max-height: calc(100svh - 36px);
   gap: 14px;
+  overflow: auto;
   padding: 14px;
   border: 1px solid var(--panel-border);
   border-radius: 8px;
   color: var(--page-text);
   background: var(--panel-bg);
   box-shadow: 0 16px 40px var(--shadow);
-  transform: translateX(50%);
+  transform: translate(-50%, -50%);
   backdrop-filter: blur(14px);
 }
 
@@ -1569,17 +1571,6 @@ a {
 
   .dice-panel {
     padding: 24px;
-  }
-
-  .settings-panel {
-    position: fixed;
-    top: 50%;
-    right: auto;
-    bottom: auto;
-    left: 50%;
-    width: calc(100vw - 36px);
-    max-width: 300px;
-    transform: translate(-50%, -50%);
   }
 
   .top-bar {
