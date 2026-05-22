@@ -1646,14 +1646,42 @@ a {
     linear-gradient(135deg, #ff1717 0%, #9d0000 100%);
 }
 
+.cheat-message {
+  display: grid;
+  width: min(100%, 560px);
+  justify-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+
+.cheat-message img {
+  width: min(72vw, 300px);
+  max-height: 46vh;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.34));
+}
+
 .cheat-overlay h2 {
+  max-width: 100%;
   margin: 0;
-  font-size: clamp(3rem, 18vw, 8rem);
+  font-size: clamp(2.1rem, 11vw, 7rem);
   font-weight: 1000;
   line-height: 0.9;
   text-align: center;
   text-transform: uppercase;
   text-shadow: 0 8px 26px rgba(0, 0, 0, 0.32);
+  overflow-wrap: anywhere;
+}
+
+.cheat-overlay p {
+  max-width: 100%;
+  margin: -10px 0 0;
+  font-size: clamp(1rem, 4.5vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 0 5px 18px rgba(0, 0, 0, 0.28);
+  overflow-wrap: anywhere;
 }
 
 .cheat-close {

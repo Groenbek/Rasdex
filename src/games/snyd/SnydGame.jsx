@@ -5,6 +5,7 @@ import { useShakeToRoll } from "../../hooks/useShakeToRoll";
 import { playBustedSound, playLifeLostSound, playYouLostSound } from "../../utils/playLifeSounds";
 import { playDiceRollSound } from "../../utils/playDiceRollSound";
 import { rollDice } from "../../utils/rollDice";
+import catImage from "../../data/images/cat.png";
 import { SnydRules } from "./SnydRules";
 
 const diceOptions = [1, 2, 3, 4, 5, 6];
@@ -193,7 +194,7 @@ export function SnydGame({ controls, kasperMode, shakeToRoll, text }) {
           className="cheat-overlay"
           role="alertdialog"
           aria-modal="true"
-          aria-label="I cheated"
+          aria-label={text.cheated}
         >
           <button
             className="cheat-close"
@@ -203,7 +204,11 @@ export function SnydGame({ controls, kasperMode, shakeToRoll, text }) {
           >
             {"\u00d7"}
           </button>
-          <h2>I cheated</h2>
+          <div className="cheat-message">
+            <img src={catImage} alt="" aria-hidden="true" />
+            <h2>{text.cheated}</h2>
+            <p>{text.cheatedTaunt}</p>
+          </div>
         </div>
       )}
 

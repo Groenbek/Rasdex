@@ -1,4 +1,4 @@
-import bustedSound from "../data/sounds/busted.mp3";
+import bustedSound from "../data/sounds/bustedcat.mp3";
 import lifeLostSound from "../data/sounds/lifelostNEW.mp3";
 import youLostSound from "../data/sounds/you lost.mp3";
 
