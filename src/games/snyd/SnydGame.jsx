@@ -1,25 +1,40 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DiceTray } from "../../components/DiceTray";
 import { Die } from "../../components/Die";
 import { useShakeToRoll } from "../../hooks/useShakeToRoll";
-import { playLifeLostSound, playYouLostSound } from "../../utils/playLifeSounds";
+import { playBustedSound, playLifeLostSound, playYouLostSound } from "../../utils/playLifeSounds";
 import { playDiceRollSound } from "../../utils/playDiceRollSound";
 import { rollDice } from "../../utils/rollDice";
 import { SnydRules } from "./SnydRules";
 
 const diceOptions = [1, 2, 3, 4, 5, 6];
 const rollSettleMs = 1120;
+const kasperRerollSettleMs = 620;
+const caughtChance = 0.33;
 
-export function SnydGame({ controls, shakeToRoll, text }) {
+export function SnydGame({ controls, kasperMode, shakeToRoll, text }) {
   const [diceCount, setDiceCount] = useState(1);
   const [dice, setDice] = useState([1]);
   const [lives, setLives] = useState(6);
   const [lost, setLost] = useState(false);
   const [rulesOpen, setRulesOpen] = useState(false);
   const [rolling, setRolling] = useState(false);
+  const [rerollingDie, setRerollingDie] = useState(null);
+  const [caughtCheating, setCaughtCheating] = useState(false);
   const [started, setStarted] = useState(false);
+  const rerollTimerRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      window.clearTimeout(rerollTimerRef.current);
+    };
+  }, []);
 
   function changeDiceCount(count) {
+    if (count === diceCount) {
+      return;
+    }
+
     setDiceCount(count);
 
     if (started) {
@@ -34,6 +49,9 @@ export function SnydGame({ controls, shakeToRoll, text }) {
       return;
     }
 
+    window.clearTimeout(rerollTimerRef.current);
+    setRerollingDie(null);
+    setCaughtCheating(false);
     setRolling(true);
     setStarted(true);
     setDice(rollDice(diceCount));
@@ -42,6 +60,29 @@ export function SnydGame({ controls, shakeToRoll, text }) {
     setTimeout(() => {
       setRolling(false);
     }, rollSettleMs);
+  }
+
+  function handleKasperReroll(index) {
+    if (!kasperMode || !started || rolling || lost || rerollingDie !== null) {
+      return;
+    }
+
+    window.clearTimeout(rerollTimerRef.current);
+    setRerollingDie(index);
+    setDice((currentDice) =>
+      currentDice.map((value, diceIndex) =>
+        diceIndex === index ? rollDice(1)[0] : value
+      )
+    );
+
+    if (Math.random() < caughtChance) {
+      playBustedSound();
+      setCaughtCheating(true);
+    }
+
+    rerollTimerRef.current = window.setTimeout(() => {
+      setRerollingDie(null);
+    }, kasperRerollSettleMs);
   }
 
   const shaking = useShakeToRoll({
@@ -80,8 +121,14 @@ export function SnydGame({ controls, shakeToRoll, text }) {
         <DiceTray
           dice={dice}
           rolling={rolling}
+          rollingDice={rerollingDie === null ? [] : [rerollingDie]}
           shakeRolling={shaking}
           label={text.rollDiceLabel(diceCount)}
+          onDieClick={
+            kasperMode && started && !rolling && !lost
+              ? handleKasperReroll
+              : undefined
+          }
         />
 
         {!started && !rolling && (
@@ -138,6 +185,25 @@ export function SnydGame({ controls, shakeToRoll, text }) {
           <button type="button" onClick={restart}>
             {text.restart}
           </button>
+        </div>
+      )}
+
+      {caughtCheating && (
+        <div
+          className="cheat-overlay"
+          role="alertdialog"
+          aria-modal="true"
+          aria-label="I cheated"
+        >
+          <button
+            className="cheat-close"
+            type="button"
+            onClick={() => setCaughtCheating(false)}
+            aria-label="Close"
+          >
+            {"\u00d7"}
+          </button>
+          <h2>I cheated</h2>
         </div>
       )}
 

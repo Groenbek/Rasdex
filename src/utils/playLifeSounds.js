@@ -1,3 +1,4 @@
+import bustedSound from "../data/sounds/busted.mp3";
 import lifeLostSound from "../data/sounds/lifelostNEW.mp3";
 import youLostSound from "../data/sounds/you lost.mp3";
 
@@ -18,4 +19,8 @@ export function playLifeLostSound() {
 
 export function playYouLostSound() {
   playSound(youLostSound, 0.72);
+}
+
+export function playBustedSound() {
+  playSound(bustedSound, 0.72);
 }

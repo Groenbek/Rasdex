@@ -709,12 +709,7 @@ a {
   font-weight: 900;
   transition:
     background 160ms ease,
-    color 160ms ease,
-    transform 160ms ease;
-}
-
-.game-nav button:hover {
-  transform: translateY(-1px);
+    color 160ms ease;
 }
 
 .game-nav .active {
@@ -795,8 +790,7 @@ a {
   background: transparent;
   cursor: pointer;
   transition:
-    background 160ms ease,
-    transform 160ms ease;
+    background 160ms ease;
 }
 
 .icon-toggle button:hover,
@@ -804,7 +798,7 @@ a {
 .settings-button:hover,
 .settings-language-list button:hover,
 .language-list button:hover {
-  transform: translateY(-1px);
+  background: var(--menu-active-bg);
 }
 
 .icon-toggle .active,
@@ -990,6 +984,15 @@ a {
   min-height: 82px;
 }
 
+.settings-subbox {
+  display: grid;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--control-bg) 72%, transparent);
+}
+
 .settings-label {
   color: var(--muted-text);
   font-size: 0.78rem;
@@ -1017,12 +1020,7 @@ a {
   font-weight: 800;
   transition:
     background 160ms ease,
-    color 160ms ease,
-    transform 160ms ease;
-}
-
-.settings-switch:hover {
-  transform: translateY(-1px);
+    color 160ms ease;
 }
 
 .settings-switch.active {
@@ -1068,8 +1066,7 @@ a {
   cursor: pointer;
   font-weight: 800;
   transition:
-    background 160ms ease,
-    transform 160ms ease;
+    background 160ms ease;
 }
 
 .settings-language-list .active {
@@ -1096,6 +1093,20 @@ a {
 .dice-tray-shell {
   position: relative;
   width: 100%;
+}
+
+.die-button {
+  appearance: none;
+  display: grid;
+  width: 100%;
+  max-width: 142px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
 }
 
 .start-overlay {
@@ -1240,7 +1251,6 @@ a {
 }
 
 .dice-tray:hover .die {
-  transform: translateY(-2px);
   box-shadow:
     inset 0 -8px 0 rgba(0, 0, 0, 0.08),
     0 18px 34px rgba(28, 37, 31, 0.26);
@@ -1252,13 +1262,15 @@ a {
 .settings-button:focus-visible,
 .settings-language-list button:focus-visible,
 .language-list button:focus-visible,
+.die-button:focus-visible,
 .dice-count button:focus-visible,
 .roll-button:focus-visible,
 .life-die:focus-visible,
 .rules-button:focus-visible,
 .strategy-button:focus-visible,
 .rules-header button:focus-visible,
-.lost-overlay button:focus-visible {
+.lost-overlay button:focus-visible,
+.cheat-close:focus-visible {
   outline: 4px solid rgba(33, 106, 83, 0.35);
   outline-offset: 4px;
 }
@@ -1368,12 +1380,7 @@ a {
   cursor: pointer;
   transition:
     background 160ms ease,
-    color 160ms ease,
-    transform 160ms ease;
-}
-
-.dice-count button:hover {
-  transform: translateY(-1px);
+    color 160ms ease;
 }
 
 .dice-count .selected {
@@ -1390,14 +1397,11 @@ a {
   background: var(--button-bg);
   font-weight: 800;
   cursor: pointer;
-  transition:
-    background 160ms ease,
-    transform 160ms ease;
+  transition: background 160ms ease;
 }
 
 .roll-button:hover:not(:disabled) {
   background: var(--button-bg-hover);
-  transform: translateY(-1px);
 }
 
 .roll-button:disabled {
@@ -1429,7 +1433,6 @@ a {
   border: 0;
   background: transparent;
   cursor: pointer;
-  transition: transform 160ms ease;
 }
 
 .life-die {
@@ -1453,10 +1456,6 @@ a {
   width: 17%;
 }
 
-.life-die:hover .die {
-  transform: translateY(-1px);
-}
-
 .life-die:disabled {
   cursor: default;
 }
@@ -1465,10 +1464,6 @@ a {
   border-radius: 999px;
   font-size: 1.45rem;
   line-height: 1;
-}
-
-.rules-button:hover {
-  transform: translateY(-1px);
 }
 
 .meyer-info-buttons {
@@ -1482,10 +1477,6 @@ a {
   border-radius: 999px;
   font-size: 1.45rem;
   line-height: 1;
-}
-
-.strategy-button:hover {
-  transform: translateY(-1px);
 }
 
 .rules-overlay {
@@ -1640,6 +1631,53 @@ a {
 
 .lost-overlay button:hover {
   background: var(--button-bg-hover);
+}
+
+.cheat-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.14), transparent 36%),
+    linear-gradient(135deg, #ff1717 0%, #9d0000 100%);
+}
+
+.cheat-overlay h2 {
+  margin: 0;
+  font-size: clamp(3rem, 18vw, 8rem);
+  font-weight: 1000;
+  line-height: 0.9;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 8px 26px rgba(0, 0, 0, 0.32);
+}
+
+.cheat-close {
+  position: absolute;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  padding: 0 0 3px;
+  border: 2px solid rgba(255, 255, 255, 0.78);
+  border-radius: 999px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 0;
+}
+
+.cheat-close:hover {
+  background: rgba(0, 0, 0, 0.32);
 }
 
 .page-footer {

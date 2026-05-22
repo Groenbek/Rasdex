@@ -14,7 +14,9 @@ function getMotionPermissionRequirement() {
 
 export function SettingsMenu({
     keepScreenAwake,
+    kasperMode,
     language,
+    onKasperModeChange,
     onKeepScreenAwakeChange,
     onLanguageChange,
     onShakeToRollChange,
@@ -193,6 +195,27 @@ export function SettingsMenu({
                                 ? text.settings.keepAwakeHint
                                 : text.settings.keepAwakeUnsupported}
                         </span>
+                        <div className="settings-subbox">
+                            <button
+                                className={`settings-switch ${kasperMode ? "active" : ""}`}
+                                type="button"
+                                onClick={() => onKasperModeChange(!kasperMode)}
+                                role="switch"
+                                aria-checked={kasperMode}
+                            >
+                                <span>Kasper</span>
+                                <span className="settings-switch-state">
+                                    {kasperMode
+                                        ? text.settings.on
+                                        : text.settings.off}
+                                </span>
+                            </button>
+                            <span className="settings-hint">
+                                {text.settings.kasperHintTitle}
+                                <br />
+                                {text.settings.kasperHint}
+                            </span>
+                        </div>
                     </div>
                 </div>
             )}

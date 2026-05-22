@@ -21,6 +21,7 @@ export function App() {
     const [activeGame, setActiveGame] = useState("snyd");
     const [shakeToRoll, setShakeToRoll] = useState(() => !needsMotionPermission());
     const [keepScreenAwake, setKeepScreenAwake] = useState(false);
+    const [kasperMode, setKasperMode] = useState(false);
     const screenWakeLock = useScreenWakeLock(keepScreenAwake);
     const text = languages[language];
 
@@ -41,7 +42,9 @@ export function App() {
     const controls = (
         <SettingsMenu
             keepScreenAwake={keepScreenAwake}
+            kasperMode={kasperMode}
             language={language}
+            onKasperModeChange={setKasperMode}
             onKeepScreenAwakeChange={setKeepScreenAwake}
             onLanguageChange={setLanguage}
             onShakeToRollChange={setShakeToRoll}
@@ -90,6 +93,7 @@ export function App() {
                         <SnydGame
                             text={text}
                             controls={controls}
+                            kasperMode={kasperMode}
                             shakeToRoll={shakeToRoll}
                         />
                     ) : (
