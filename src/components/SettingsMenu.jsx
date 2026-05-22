@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { languageOptions, languages } from "../data/languages";
+import { unlockDiceRollSound } from "../utils/playDiceRollSound";
 import { Flag } from "./Flag";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -61,6 +62,10 @@ export function SettingsMenu({
 
     async function toggleShakeToRoll() {
         const nextValue = !shakeToRoll;
+
+        if (nextValue) {
+            unlockDiceRollSound();
+        }
 
         if (
             nextValue &&

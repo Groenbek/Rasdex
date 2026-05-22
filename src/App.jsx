@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Footer } from "./components/Footer";
 import { SettingsMenu } from "./components/SettingsMenu";
 import { languages } from "./data/languages";
 import { MeyerGame } from "./games/meyer/MeyerGame";
 import { SnydGame } from "./games/snyd/SnydGame";
 import { useScreenWakeLock } from "./hooks/useScreenWakeLock";
+import { unlockDiceRollSound } from "./utils/playDiceRollSound";
 
 export function App() {
     function needsMotionPermission() {
@@ -22,6 +23,21 @@ export function App() {
     const [keepScreenAwake, setKeepScreenAwake] = useState(false);
     const screenWakeLock = useScreenWakeLock(keepScreenAwake);
     const text = languages[language];
+
+    useEffect(() => {
+        function unlockAudio() {
+            unlockDiceRollSound();
+        }
+
+        window.addEventListener("pointerdown", unlockAudio, { once: true });
+        window.addEventListener("keydown", unlockAudio, { once: true });
+
+        return () => {
+            window.removeEventListener("pointerdown", unlockAudio);
+            window.removeEventListener("keydown", unlockAudio);
+        };
+    }, []);
+
     const controls = (
         <SettingsMenu
             keepScreenAwake={keepScreenAwake}
