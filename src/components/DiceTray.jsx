@@ -17,7 +17,7 @@ export function DiceTray({
             type="button"
             onClick={() => onDieClick(index)}
             aria-label={`Reroll die ${index + 1}, currently showing ${value}`}
-            key={`${index}-${value}`}
+            key={index}
           >
             <Die
               value={value}
@@ -32,7 +32,7 @@ export function DiceTray({
             index={index}
             rolling={rolling || rollingDice.includes(index)}
             shakeRolling={shakeRolling}
-            key={`${index}-${value}`}
+            key={index}
           />
         )
       ))}
