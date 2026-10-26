@@ -3,6 +3,7 @@ import { Footer } from "./components/Footer";
 import { SettingsMenu } from "./components/SettingsMenu";
 import { languages } from "./data/languages";
 import { MeyerGame } from "./games/meyer/MeyerGame";
+import { RouletteGame } from "./games/roulette/RouletteGame";
 import { SnydGame } from "./games/snyd/SnydGame";
 import { useScreenWakeLock } from "./hooks/useScreenWakeLock";
 import { unlockDiceRollSound } from "./utils/playDiceRollSound";
@@ -85,6 +86,14 @@ export function App() {
                         >
                             Meyer
                         </button>
+                        <button
+                            className={activeGame === "roulette" ? "active" : ""}
+                            type="button"
+                            onClick={() => setActiveGame("roulette")}
+                            aria-pressed={activeGame === "roulette"}
+                        >
+                            {text.roulette.navTitle}
+                        </button>
                     </nav>
                 </header>
 
@@ -96,12 +105,14 @@ export function App() {
                             kasperMode={kasperMode}
                             shakeToRoll={shakeToRoll}
                         />
-                    ) : (
+                    ) : activeGame === "meyer" ? (
                         <MeyerGame
                             text={text}
                             controls={controls}
                             shakeToRoll={shakeToRoll}
                         />
+                    ) : (
+                        <RouletteGame text={text} controls={controls} />
                     )}
                 </div>
             </div>
