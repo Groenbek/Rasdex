@@ -24,10 +24,15 @@ function ConfirmationDialog({ body, confirmLabel, onCancel, onConfirm, title, ca
   return (
     <div className="rules-overlay" role="alertdialog" aria-modal="true" aria-labelledby="yatzy-dialog-title">
       <div className="rules-card yatzy-confirm-card">
-        <header className="rules-header"><h2 id="yatzy-dialog-title">{title}</h2></header>
-        <p>{body}</p>
+        <header className="rules-header yatzy-confirm-header">
+          <span className="yatzy-confirm-icon" aria-hidden="true">✓</span>
+          <h2 id="yatzy-dialog-title">{title}</h2>
+        </header>
+        <div className="yatzy-confirm-message">
+          <p>{body}</p>
+        </div>
         <div className="yatzy-dialog-actions">
-          <button type="button" onClick={onCancel}>{cancelLabel}</button>
+          <button className="secondary" type="button" onClick={onCancel}>{cancelLabel}</button>
           <button className="primary" type="button" onClick={onConfirm}>{confirmLabel}</button>
         </div>
       </div>

@@ -1432,19 +1432,78 @@ a {
 
 .yatzy-confirm-card {
   width: min(calc(100vw - 36px), 420px);
+  max-height: none;
+  grid-template-rows: auto auto auto;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.46);
 }
 
-.yatzy-confirm-card > p {
+.rules-card .yatzy-confirm-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 11px;
+  padding: 18px 20px 16px;
+}
+
+.yatzy-confirm-card .yatzy-confirm-header h2 {
+  font-size: clamp(1.1rem, 4.5vw, 1.3rem);
+  line-height: 1.2;
+}
+
+.yatzy-confirm-icon {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--button-text);
+  background: var(--button-bg);
+  font-size: 1rem;
+  font-weight: 900;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+}
+
+.yatzy-confirm-message {
+  padding: 22px 20px 24px;
+  background: color-mix(in srgb, var(--control-bg) 42%, transparent);
+}
+
+.yatzy-confirm-message p {
   margin: 0;
   color: var(--page-text);
-  font-weight: 700;
-  line-height: 1.45;
+  font-size: 1.02rem;
+  font-weight: 750;
+  line-height: 1.55;
+  text-align: center;
 }
 
 .yatzy-dialog-actions {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  gap: 10px;
+  padding: 16px 20px 20px;
+}
+
+.yatzy-dialog-actions button {
+  min-height: 46px;
+  border-radius: 9px;
+  transition: transform 140ms ease, filter 140ms ease, border-color 140ms ease;
+}
+
+.yatzy-dialog-actions button:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.yatzy-dialog-actions button:active {
+  transform: translateY(0);
+}
+
+.yatzy-dialog-actions .secondary {
+  background: color-mix(in srgb, var(--control-bg) 82%, transparent);
 }
 
 .yatzy-rules-card {
