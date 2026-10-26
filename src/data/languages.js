@@ -1,3 +1,5 @@
+import { yatzyTranslations } from "./yatzyTranslations.js";
+
 export const languages = {
     en: {
         name: "English",
@@ -112,6 +114,7 @@ export const languages = {
             result: "Result",
             colors: { red: "Red", black: "Black", green: "Green" },
         },
+        yatzy: yatzyTranslations.en,
     },
     da: {
         name: "Dansk",
@@ -227,6 +230,7 @@ export const languages = {
             result: "Resultat",
             colors: { red: "Rød", black: "Sort", green: "Grøn" },
         },
+        yatzy: yatzyTranslations.da,
     },
     de: {
         name: "Deutsch",
@@ -343,6 +347,7 @@ export const languages = {
             result: "Ergebnis",
             colors: { red: "Rot", black: "Schwarz", green: "Grün" },
         },
+        yatzy: yatzyTranslations.de,
     },
     es: {
         name: "Espanol",
@@ -457,6 +462,7 @@ export const languages = {
             result: "Resultado",
             colors: { red: "Rojo", black: "Negro", green: "Verde" },
         },
+        yatzy: yatzyTranslations.es,
     },
     sv: {
         name: "Svensk",
@@ -571,6 +577,7 @@ export const languages = {
             result: "Resultat",
             colors: { red: "Röd", black: "Svart", green: "Grön" },
         },
+        yatzy: yatzyTranslations.sv,
     },
     ja: {
         name: "日本語",
@@ -683,6 +690,7 @@ export const languages = {
             result: "結果",
             colors: { red: "赤", black: "黒", green: "緑" },
         },
+        yatzy: yatzyTranslations.ja,
     },
     zh: {
         name: "中文",
@@ -793,6 +801,7 @@ export const languages = {
             result: "结果",
             colors: { red: "红色", black: "黑色", green: "绿色" },
         },
+        yatzy: yatzyTranslations.zh,
     },
     no: {
         name: "Norsk",
@@ -908,6 +917,7 @@ export const languages = {
             result: "Resultat",
             colors: { red: "Rød", black: "Svart", green: "Grønn" },
         },
+        yatzy: yatzyTranslations.no,
     },
 };
 

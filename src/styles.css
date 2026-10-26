@@ -687,8 +687,8 @@ a {
 
 .game-nav {
   display: grid;
-  width: min(100%, 430px);
-  grid-template-columns: repeat(3, 1fr);
+  width: min(100%, 520px);
+  grid-template-columns: repeat(4, 1fr);
   gap: 6px;
   padding: 6px;
   border: 1px solid var(--panel-border);
@@ -1040,6 +1040,439 @@ a {
   --roulette-metal: #b9d9ef;
   --roulette-metal-dark: #0066b2;
   --roulette-bed: #0d5f2f;
+}
+
+.yatzy-panel {
+  width: min(100%, 620px);
+  align-content: start;
+}
+
+.yatzy-header {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.yatzy-header > div:first-child {
+  display: grid;
+  min-width: 0;
+  gap: 8px;
+}
+
+.yatzy-header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 8vw, 3rem);
+  line-height: 1;
+}
+
+.yatzy-header input {
+  width: min(100%, 230px);
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  color: var(--page-text);
+  background: var(--control-bg);
+  font: inherit;
+  font-weight: 750;
+}
+
+.yatzy-total-badge {
+  display: grid;
+  min-width: 82px;
+  gap: 2px;
+  padding: 10px 14px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  background: var(--control-bg);
+  text-align: center;
+}
+
+.yatzy-total-badge span {
+  color: var(--muted-text);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.yatzy-total-badge strong {
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.yatzy-mode-toggle {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  padding: 5px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  background: var(--control-bg);
+}
+
+.yatzy-mode-toggle button {
+  min-height: 40px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--page-text);
+  background: transparent;
+  cursor: pointer;
+  font-weight: 850;
+}
+
+.yatzy-mode-toggle button.active {
+  color: var(--control-selected-text);
+  background: var(--control-selected);
+}
+
+.yatzy-mode-toggle button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+.yatzy-play-area {
+  position: sticky;
+  top: 8px;
+  z-index: 4;
+  display: grid;
+  width: 100%;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel-bg) 94%, transparent);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--shadow) 65%, transparent);
+  backdrop-filter: blur(16px);
+}
+
+.yatzy-turn-status {
+  display: flex;
+  min-height: 32px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.yatzy-turn-status strong {
+  flex: 0 0 auto;
+}
+
+.yatzy-turn-status span {
+  color: var(--muted-text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.yatzy-dice-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.yatzy-die-button {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 64px;
+  place-items: center;
+  padding: 7px 2px 14px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  color: var(--page-text);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background 150ms ease,
+    transform 150ms ease;
+}
+
+.yatzy-die-button .die {
+  --die-size: clamp(48px, 9vw, 68px);
+  --cube-depth: calc(var(--die-size) / 2);
+  max-width: 100%;
+}
+
+.yatzy-die-button.locked {
+  border-color: var(--button-bg);
+  background: var(--menu-active-bg);
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--button-bg) 26%, transparent);
+}
+
+.yatzy-die-button:not(:disabled):active {
+  transform: scale(0.96);
+}
+
+.yatzy-die-button:disabled {
+  cursor: default;
+}
+
+.yatzy-lock-badge {
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 5px;
+  border-radius: 999px;
+  color: var(--button-text);
+  background: var(--button-bg);
+  font-size: 0.56rem;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.yatzy-lock-badge span {
+  font-size: 0.62rem;
+}
+
+.yatzy-empty-die {
+  display: grid;
+  width: clamp(48px, 9vw, 68px);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 2px dashed var(--panel-border);
+  border-radius: 8px;
+  color: var(--muted-text);
+  background: var(--control-bg);
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.yatzy-scorecard {
+  display: grid;
+  width: 100%;
+  gap: 10px;
+}
+
+.yatzy-turn-notice {
+  width: 100%;
+  margin: -4px 0 0;
+  padding: 9px 11px;
+  border: 1px solid color-mix(in srgb, var(--button-bg) 52%, var(--panel-border));
+  border-radius: 7px;
+  color: var(--page-text);
+  background: var(--menu-active-bg);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.yatzy-score-section {
+  display: grid;
+  gap: 6px;
+}
+
+.yatzy-score-section h3 {
+  margin: 8px 0 0;
+  color: var(--muted-text);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.yatzy-score-rows {
+  display: grid;
+  gap: 4px;
+}
+
+.yatzy-score-row,
+.yatzy-summary-row {
+  display: grid;
+  width: 100%;
+  min-height: 43px;
+  grid-template-columns: minmax(0, 1fr) 62px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 0 13px;
+  border: 1px solid var(--panel-border);
+  border-radius: 7px;
+  color: var(--page-text);
+  background: var(--control-bg);
+}
+
+.yatzy-score-row {
+  cursor: pointer;
+  text-align: left;
+  font-weight: 780;
+}
+
+.yatzy-score-row strong,
+.yatzy-summary-row > strong {
+  display: grid;
+  min-height: 31px;
+  place-items: center;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--control-bg) 58%, var(--panel-bg));
+  font-size: 1rem;
+}
+
+.yatzy-score-row.available {
+  border-color: color-mix(in srgb, var(--button-bg) 58%, var(--panel-border));
+  background: color-mix(in srgb, var(--menu-active-bg) 64%, var(--control-bg));
+}
+
+.yatzy-score-row.available strong {
+  color: var(--button-text);
+  background: var(--button-bg);
+}
+
+.yatzy-score-row.filled {
+  background: color-mix(in srgb, var(--control-selected) 10%, var(--control-bg));
+}
+
+.yatzy-score-row.filled strong {
+  color: var(--control-selected-text);
+  background: var(--control-selected);
+}
+
+.yatzy-score-row:disabled {
+  cursor: default;
+  opacity: 0.62;
+}
+
+.yatzy-summary-row {
+  font-weight: 850;
+}
+
+.yatzy-summary-row span {
+  display: grid;
+  gap: 1px;
+}
+
+.yatzy-summary-row small {
+  color: var(--muted-text);
+  font-size: 0.65rem;
+}
+
+.yatzy-bonus.achieved {
+  border-color: var(--button-bg);
+}
+
+.yatzy-grand-total {
+  min-height: 54px;
+  color: var(--control-selected-text);
+  background: var(--control-selected);
+  font-size: 1.08rem;
+}
+
+.yatzy-grand-total > strong {
+  color: var(--control-selected);
+  background: var(--control-selected-text);
+  font-size: 1.25rem;
+}
+
+.yatzy-management {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.yatzy-management button,
+.yatzy-dialog-actions button,
+.yatzy-finished button {
+  min-height: 40px;
+  padding: 7px 9px;
+  border: 1px solid var(--panel-border);
+  border-radius: 7px;
+  color: var(--page-text);
+  background: var(--control-bg);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.yatzy-management button:disabled {
+  cursor: not-allowed;
+  opacity: 0.46;
+}
+
+.yatzy-panel-actions {
+  justify-content: center;
+}
+
+.yatzy-finished {
+  display: grid;
+  width: 100%;
+  place-items: center;
+  gap: 8px;
+  padding: 18px;
+  border: 2px solid var(--button-bg);
+  border-radius: 8px;
+  background: var(--menu-active-bg);
+  text-align: center;
+}
+
+.yatzy-finished span {
+  color: var(--muted-text);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.yatzy-finished strong {
+  font-size: 1.65rem;
+}
+
+.yatzy-finished button,
+.yatzy-dialog-actions .primary {
+  color: var(--button-text);
+  background: var(--button-bg);
+}
+
+.yatzy-confirm-card {
+  width: min(calc(100vw - 36px), 420px);
+}
+
+.yatzy-confirm-card > p {
+  margin: 0;
+  color: var(--page-text);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.yatzy-dialog-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.yatzy-rules-card {
+  max-height: min(720px, calc(100svh - 36px));
+  overflow: auto;
+}
+
+.terminal .yatzy-play-area,
+.terminal .yatzy-score-row,
+.terminal .yatzy-summary-row {
+  box-shadow: 0 0 12px rgba(124, 255, 138, 0.1);
+}
+
+.ugly .yatzy-die-button.locked {
+  border-width: 4px;
+  border-color: #140017;
+  background: #ffe600;
+}
+
+.wood .yatzy-play-area {
+  background:
+    repeating-linear-gradient(9deg, rgba(87, 46, 20, 0.08) 0 2px, transparent 2px 13px),
+    color-mix(in srgb, var(--panel-bg) 96%, transparent);
+}
+
+.football .yatzy-die-button.locked {
+  border-color: #ffffff;
+  background: rgba(0, 102, 178, 0.42);
 }
 
 .top-bar {
@@ -1562,6 +1995,12 @@ a {
 .settings-language-list button:focus-visible,
 .language-list button:focus-visible,
 .die-button:focus-visible,
+.yatzy-die-button:focus-visible,
+.yatzy-mode-toggle button:focus-visible,
+.yatzy-score-row:focus-visible,
+.yatzy-management button:focus-visible,
+.yatzy-dialog-actions button:focus-visible,
+.yatzy-header input:focus-visible,
 .dice-count button:focus-visible,
 .roll-button:focus-visible,
 .life-die:focus-visible,
@@ -2252,6 +2691,68 @@ a {
   .roulette-panel {
     gap: 16px;
     padding-inline: 18px;
+  }
+
+  .game-nav {
+    gap: 3px;
+    padding: 4px;
+  }
+
+  .game-nav button {
+    min-height: 38px;
+    font-size: 0.82rem;
+  }
+
+  .yatzy-panel {
+    gap: 14px;
+    padding-inline: 14px;
+  }
+
+  .yatzy-header {
+    gap: 10px;
+  }
+
+  .yatzy-header h1 {
+    font-size: 2.05rem;
+  }
+
+  .yatzy-total-badge {
+    min-width: 72px;
+    padding-inline: 9px;
+  }
+
+  .yatzy-play-area {
+    top: 4px;
+    padding: 10px;
+  }
+
+  .yatzy-turn-status {
+    display: grid;
+    gap: 3px;
+  }
+
+  .yatzy-turn-status span {
+    text-align: left;
+  }
+
+  .yatzy-dice-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px 10px;
+  }
+
+  .yatzy-die-button {
+    min-height: 74px;
+    padding-bottom: 13px;
+  }
+
+  .yatzy-die-button .die,
+  .yatzy-empty-die {
+    --die-size: clamp(58px, 19vw, 72px);
+    width: var(--die-size);
+  }
+
+  .yatzy-management {
+    grid-template-columns: 1fr;
   }
 
   .top-bar {

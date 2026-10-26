@@ -5,6 +5,7 @@ import { languages } from "./data/languages";
 import { MeyerGame } from "./games/meyer/MeyerGame";
 import { RouletteGame } from "./games/roulette/RouletteGame";
 import { SnydGame } from "./games/snyd/SnydGame";
+import { YatzyGame } from "./games/yatzy/YatzyGame";
 import { useScreenWakeLock } from "./hooks/useScreenWakeLock";
 import { unlockDiceRollSound } from "./utils/playDiceRollSound";
 
@@ -94,6 +95,14 @@ export function App() {
                         >
                             {text.roulette.navTitle}
                         </button>
+                        <button
+                            className={activeGame === "yatzy" ? "active" : ""}
+                            type="button"
+                            onClick={() => setActiveGame("yatzy")}
+                            aria-pressed={activeGame === "yatzy"}
+                        >
+                            {text.yatzy.navTitle}
+                        </button>
                     </nav>
                 </header>
 
@@ -111,8 +120,10 @@ export function App() {
                             controls={controls}
                             shakeToRoll={shakeToRoll}
                         />
-                    ) : (
+                    ) : activeGame === "roulette" ? (
                         <RouletteGame text={text} controls={controls} />
+                    ) : (
+                        <YatzyGame text={text} controls={controls} />
                     )}
                 </div>
             </div>
